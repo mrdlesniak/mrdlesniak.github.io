@@ -1,2 +1,0 @@
-# mrdlesniak
-Personal Portfolio
