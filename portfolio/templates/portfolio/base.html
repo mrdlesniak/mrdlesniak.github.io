@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Dorsa&family=Raleway&display=swap" rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'portfolio/style.css' %}">
+</head>
+<body>
+    
+    <!-- main header section -->
+    <div class="navbar">
+        <nav>
+            <p class="title">Dyl<span style="color:grey">a</span>n Lesni<span style="color:grey">a</span>k</h1>
+            
+        </nav>
+        
+        <div class="menu_section">
+            <a class="menu_links" href="">About</a>
+            <a class="menu_links" href="">Projects</a>
+            <a class="menu_links" href="">Resume</a>
+        </div>
+        <hr>
+    </div>
+    
+    
+    {% block content %}
+    {% endblock %}
+    <!-- main footer section-->
+</body>
+</html>
