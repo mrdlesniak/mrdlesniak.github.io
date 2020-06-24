@@ -24,11 +24,25 @@ nav{
     color: grey;
     text-decoration: none;
     padding: 10px;
+    transition: 0.3s;
+}
+
+.active{
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: 0.3s;
 }
 
 .menu_links:hover{
     background-color: #D9D9D9;
     color: #595959;
+}
+
+.menu_links:active{
+    background-color: #595959;
+    color: white;
 }
 
 hr{
@@ -37,3 +51,6 @@ hr{
 }
 
 /* body */
+h2{
+    font-weight: normal;
+}

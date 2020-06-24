@@ -20,14 +20,13 @@
         </nav>
         
         <div class="menu_section">
-            <a class="menu_links" href="">About</a>
-            <a class="menu_links" href="">Projects</a>
-            <a class="menu_links" href="">Resume</a>
+            <a {% if activate == 'about' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:index' %}">About</a>
+            <a {% if activate == 'projects' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:projects' %}">Projects</a>
+            <a {% if activate == 'resume' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="">Resume</a>
         </div>
         <hr>
     </div>
-    
-    
+        
     {% block content %}
     {% endblock %}
     <!-- main footer section-->
