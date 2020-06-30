@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'portfolio/base.html' %}
+{% block content %}
+<div class="content">
+    <h1 class="flexboxes">Projects</h1>
+    <hr class="flexboxes h1hr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dylan Lesniak</title>
-</head>
+    <div class="project_area">
+        <div class="project">
+            <h2 class="flexboxes">Kvetchup</h2>
+            <p class="flexboxes">Kvetchup is a simple app designed to help people complain to and rate certain companies.</p>
+            <p class="flexboxes">...</p>
+            <p class="flexboxes"><i> Python, Django, SQLite, Vue.js, Axios, HTML, CSS</i></p>
 
-<body>
-    {% extends 'portfolio/base.html' %}
-    {% block content %}
-    <h1>Projects</h1>
-    
-    <h2>Kvetchup</h2>
-    <p>A description</p>
+        </div>
 
-    <h2>Job Activity Tracker</h2>
-    <p>Another description</p>
+        <div class="project">
+            <h2 class="flexboxes">Job Activity Tracker</h2>
+            <p class="flexboxes">Site helps to organize activities. Groups them by week, and then by day.</p>
+            <p class="flexboxes">...</p>
+            <p class="flexboxes"><i> Python, Django, SQLite, Materialize, JavaScript, Vue.js, HTML, CSS</i></p>
 
+        </div>
 
-    {% endblock %}
-</body>
+    </div>
 
-</html>
+</div>
+{% endblock %}

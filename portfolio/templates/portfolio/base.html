@@ -1,23 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dylan Lesniak</title>
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Dorsa&family=Raleway&display=swap" rel="stylesheet">
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="{% static 'portfolio/style.css' %}">
+
+    <!-- icons -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'portfolio/icons/favicon.ico' %}" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'portfolio/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'portfolio/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'portfolio/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'portfolio/icons/site.webmanifest' %}">
+
 </head>
 <body>
     
+    
     <!-- main header section -->
     <div class="navbar">
-        <nav>
-            <p class="title">Dyl<span style="color:grey">a</span>n Lesni<span style="color:grey">a</span>k</h1>
-            
-        </nav>
+        <div class="logo">
+            <img src="{% static 'portfolio/icons/favicon.ico' %}" type="image/x-icon">
+            <nav>
+                <p class="title">Dyl<span style="color:grey">a</span>n Lesni<span style="color:grey">a</span>k</h1>
+                
+            </nav>
+
+        </div>
         
         <div class="menu_section">
             <a {% if activate == 'about' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:index' %}">About</a>
@@ -26,9 +39,11 @@
         </div>
         <hr>
     </div>
-        
-    {% block content %}
-    {% endblock %}
+    <div class=background>
+        {% block content %}
+        {% endblock %}
+
+    </div>    
     <!-- main footer section-->
 </body>
 </html>
