@@ -1,4 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 /* navbar */
+
+.logo{
+    padding: 5px;
+    margin: 5px;
+}
+
 .title{
     font-family: 'Dorsa', sans-serif;
     font-size: 150px;
@@ -51,6 +62,66 @@ hr{
 }
 
 /* body */
+body{
+    background-color: white;
+}
+
+.content {
+    padding: 80px 10px 10px 10px;
+    margin: 5px;
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+}
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+.flexboxes{
+    display: flex;
+    justify-content: center;
+}
+
+.h1hr{
+    max-width: 33vw;
+    margin: 10px auto 40px auto;
+}
+
 h2{
     font-weight: normal;
+}
+
+/* projects page */
+.project_area{
+    display: flex;
+    background-color: black;
+}
+
+.project{
+    flex: 1;
+    border: 5px solid grey;
+    background-color: white;
+    margin: 20px; 
+    height: 200px;
 }
