@@ -64,6 +64,7 @@ hr{
 /* body */
 body{
     background-color: white;
+    font-family: 'Raleway', sans-serif;
 }
 
 .content {
@@ -105,23 +106,48 @@ body{
 
 .h1hr{
     max-width: 33vw;
-    margin: 10px auto 40px auto;
+    margin: 10px auto 100px auto;
 }
 
-h2{
-    font-weight: normal;
-}
+
 
 /* projects page */
+.project_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .project_area{
     display: flex;
-    background-color: black;
+    margin: 20px;
+    
 }
 
 .project{
-    flex: 1;
+    position: relative;
     border: 5px solid grey;
     background-color: white;
-    margin: 20px; 
-    height: 200px;
+    width: 100%;
+    text-align: center;
+    top: 0px;
+    transition: top ease 0.5s;
+    overflow: hidden;
+}
+
+.project:hover{
+    top: -10px;
+}
+
+
+
+
+/* desktop exclusive formatting */
+@media only screen and (min-width: 768px) {
+    .project_box{flex-direction: row;}
+    .project_area{
+        width: 400px;
+        height: 400px;
+    }
+    .project{padding: 100px 50px 50px 50px}
 }
