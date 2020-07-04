@@ -1,0 +1,60 @@
+{% extends 'kvetchupapp/base.html' %}
+
+{% block content %}
+<div class="content">
+    {% if message == 'True' %}
+    <a class="modal_bg" href="{% url 'kvetchupapp:ratings' %}">
+        <div class="modal">
+            <div class="modal_text">Review Submitted Successfully</div>
+        </div>
+    </a>
+    {% endif %}
+    <h2>Reviews</h2>
+    <div class="instruction">Please choose corporation to get reviews for. </div>
+    <div class="select_section">
+        <select v-model="siteId" id="sites_drop_down">
+            <option disabled value="Hello" selected>Choose a Site</option>
+            {% for site in sites %}
+                <option value="{{site.id}}" >{{site.name}}</option>
+            {% endfor %}
+        </select>
+        <button v-on:click="getSiteView" class="rage">Select</button>
+    </div>
+    <div class="input_section" v-if="name">
+        <h3>Name: &ensp; [[name]]</h3>
+        
+        {% if user.is_authenticated %}
+        <form action="{% url 'kvetchupapp:newreview' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="review_text" id="" placeholder="Leave a Review!" required>
+            <input type="hidden" name="siteId" v-bind:value="siteId">
+            <button type="submit">Submit</button>
+        </form>
+        {% endif %}
+        
+        {% if user.is_anonymous  %}
+        <div class="login_message" v-if="name">
+            <span class="login_notice">Please <a class="inline_link" href="{% url 'users:login' %}">log in</a> to leave a review.</span>
+        </div>
+        {% endif %}
+        <br>
+        
+        
+        <div v-if="name && reviews">
+            <div v-for="review in reviews">
+                <div class="review_section">
+                    <p class="username">[[review.user]]</p>
+                    <hr>
+                    <p class="review"> [[review.review]]</p>
+                    <p class="date"><i>Date published: &ensp; [[review.review_date]]</i></p>
+                </div>
+            </div>
+        </div>
+        <div class="review_section"  v-if="name && !reviews">
+            <p class="username">Be the first to review this site!</p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

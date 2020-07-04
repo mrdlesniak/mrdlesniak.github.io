@@ -1,0 +1,153 @@
+{% extends 'kvetchupapp/base.html' %}
+
+{% block content %}
+<div class="content">
+    <!-- modal for after editing -->
+    {% if message == 'True' %}
+    <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
+        <div class="modal">
+            <div class="modal_text">Profile Edited Successfully</div>
+        </div>
+    </a>
+    {% endif %}
+
+    <!-- modal for if user edits username to one that already exists -->
+    {% if message == 'exists' %}
+    <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
+        <div class="modal">
+            <div class="modal_text">Username Already Exists</div>
+            <div class="modal_text">Please Try Again</div>
+        </div>
+    </a>
+    {% endif %}
+
+    <!-- modal for if user deleted a review -->
+    {% if message == 'deleted' %}
+    <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
+        <div class="modal">
+            <div class="modal_text">Review Was </div>
+            <div class="modal_text">Successfully Deleted</div>
+        </div>
+    </a>
+    {% endif %}
+
+    <!-- display of user information -->
+    <h2>Profile</h2>
+    <div class="welcome">Welcome, {{user.username | title}}</div>
+    <div v-if="!edit_user" class="requirements">Do not include spaces</div>
+    <div class="profile_fields">
+        <form method="post" action="{% url 'kvetchupapp:edit' %}" class="profile_form" v-on:keydown.enter.prevent="checkValues">
+            {% csrf_token %}
+            
+            <div class="profile_username">
+                <span v-if="edit_user">Username: &ensp; {{user.username | title}}</span>
+                <span v-bind:class="{error: usrnmError}" v-if="!edit_user">Username: &ensp; {{user.username | title}}<input type="text" name="user_name" v-model="userName" ></span>
+                <div v-if="!edit_user" class="requirements">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</div>
+            </div>
+            <div class="first_name">
+                <span v-if="edit_user">First Name: &ensp; {{user.first_name}}</span>
+                <span v-bind:class="{error: frstnmError}" v-if="!edit_user">First Name: &ensp; {{user.first_name}}<input type="text" name="first_name" v-model="firstName"></span>
+            </div>
+            <div>
+                <span v-if="edit_user">Last Name: &ensp; {{user.last_name}}</span>
+                <span v-bind:class="{error: lstnmError}" v-if="!edit_user">Last Name: &ensp; {{user.last_name}}<input type="text" name="last_name" id="" v-model="lastName"></span>
+            </div>
+            <div>
+                <span v-if="edit_user">Email: &ensp; {{user.email}}</span>
+                <span v-if="!edit_user">Email: &ensp; {{user.email}}</span>
+            </div>
+            
+            <div v-show="isSure" class="modal_bg" v-on:click="resetisSure">
+                <div class="modal">
+                    <div class="modal_text">
+                        <p>Are you sure?</p>
+                        <div class="modal_buttons">
+                            <button type="submit">Submit</button>
+                            <button id="cancel_edit" type="button" v-on:click="resetisSure">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+            <div v-show="!isValid" class="modal_bg" v-on:click="resetValid">
+                <div class="modal">
+                    <div class="modal_text">
+                        <p>Invalid Entry</p>
+                    </div>
+                </div>
+            </div>
+            
+        <div class="edit_buttons">
+            <button v-if="edit_user" v-on:click="editUserFunction">Edit</button>
+            <button v-if="!edit_user" v-on:click="checkValues">Submit</button>
+            <button id="cancel_edit" v-if="!edit_user" v-on:click="editUserFunction">Cancel</button>
+        </div>
+
+        
+        <div v-if="edit_user">
+            <hr v-if="edit_user">
+            <button v-if="edit_user" v-on:click="displayAdditional" >[[hide]] Reviews</button>
+            <div class="additional_content" v-if="hide == 'Hide'">
+                {% for review in user.reviews.all %}
+
+                    <form action="{% url 'kvetchupapp:edit_review' %}" v-on:keydown.enter.prevent="checkReview" method="post">
+                        {% csrf_token %}
+                        <div class="review_section">
+                            <p class="username">Site: &ensp; {{review.site.name}}</p>
+                            <hr>
+                            <p v-if="{{review.id}} != reviewNum || isSureDelete" class="review"> {{review.review}}</p>
+                            <p v-if="{{review.id}} == reviewNum && !isSureDelete"> <input type="text" name="review" value="{{review.review}}"></p>
+                            <p class="date"><i>Date published: &ensp; {{review.review_date}}</i></p>
+                            <div class="review_buttons">
+                                <div class="edit_buttons" v-if="{{review.id}} != reviewNum || isSureDelete">
+                                    <button class="review_edit" type="button" v-on:click="reviewNum = {{review.id}}" >Edit</button>
+                                    <button class="delete" type="button" v-on:click="showDeleteModal();reviewNum = {{review.id}}">Delete</button>
+                                </div>
+                                <div class="edit_buttons" v-if="{{review.id}} == reviewNum && !isSureDelete">
+                                    <button class="review_edit" type="button" v-on:click="checkReview">Submit</button>
+                                    <button type="button" class="delete" v-on:click="reviewNum = ''">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-show="isSureReview" class="modal_bg" v-on:click="resetisSureReview">
+                            <div class="modal">
+                                <div class="modal_text">
+                                    <p>Submit?</p>
+                                    <div class="modal_buttons">
+                                        <input type="hidden" v-model="reviewNum" name="review_id">
+                                        <button type="submit">Submit</button>
+                                        <button id="cancel_edit" type="button" v-on:click="resetisSure">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% endfor %}
+            </div>
+        </div>
+
+       
+
+
+        <form action="{% url 'kvetchupapp:delete_review' %}" method="post">
+            {% csrf_token %}
+
+            <div v-show="isSureDelete" class="modal_bg" v-on:click="resetisSureDelete">
+                <div class="modal">
+                    <div class="modal_text">
+                        <p>Are you sure?</p>
+                        <div class="modal_buttons">
+                            <input type="hidden" v-model="reviewNum" name="review_id">
+                            <button type="submit">Delete</button>
+                            <button id="cancel_edit" type="button" v-on:click="resetisSureDelete(); reviewNum=''">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

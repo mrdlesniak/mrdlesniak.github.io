@@ -4,24 +4,27 @@
     <h1 class="flexboxes">Projects</h1>
     <hr class="flexboxes h1hr">
 
-    <div class="project_area">
-        <div class="project">
-            <h2 class="flexboxes">Kvetchup</h2>
-            <p class="flexboxes">Kvetchup is a simple app designed to help people complain to and rate certain companies.</p>
-            <p class="flexboxes">...</p>
-            <p class="flexboxes"><i> Python, Django, SQLite, Vue.js, Axios, HTML, CSS</i></p>
+    <div class="project_box">
+        <div class="project_area">
+            <div class="project">
+                <h1 ><a id="kvetchup" href="{% url 'kvetchupapp:index' %}">Kvetchup</a></h1>
+                <p >Kvetchup is a simple app designed to help people complain to and rate certain companies.</p>
+                <br>
+                <p ><i> Python, Django, SQLite, Vue.js, Axios, HTML, CSS</i></p>
+                <a class="project_links" href="https://github.com/mrdlesniak/Kvetchup-Capstone">source @ github</a>
 
+            </div>
         </div>
 
-        <div class="project">
-            <h2 class="flexboxes">Job Activity Tracker</h2>
-            <p class="flexboxes">Site helps to organize activities. Groups them by week, and then by day.</p>
-            <p class="flexboxes">...</p>
-            <p class="flexboxes"><i> Python, Django, SQLite, Materialize, JavaScript, Vue.js, HTML, CSS</i></p>
-
+        <div class="project_area">
+            <div class="project">
+                <h2 ><a id="jat" href="{% url 'jat:index' %}">Job Activity Tracker</a> </h2>
+                <p >Site helps to organize activities. Groups them by week, and then by day.</p>
+                <br>
+                <p ><i> Python, Django, SQLite, Materialize, JavaScript, Vue.js, HTML, CSS</i></p>
+                <a class="project_links" href="https://github.com/mrdlesniak/unemployment_organizer">source @ github</a>
+            </div>
         </div>
-
     </div>
-
 </div>
 {% endblock %}

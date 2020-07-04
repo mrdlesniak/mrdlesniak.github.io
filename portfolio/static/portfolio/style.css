@@ -139,8 +139,28 @@ body{
     top: -10px;
 }
 
+.project_links{
+    color: grey;
+    text-decoration: underline;
+}
 
+.project_links:hover{
+    color: #595959;
+}
 
+.project_links:active{
+    color: black;
+}
+
+#kvetchup{
+    font-family: 'Berkshire Swash', cursive;
+    color: #FFD830;
+}
+
+#jat{
+    font-family: 'Roboto', sans-serif;
+    color: #004d40;
+}
 
 /* desktop exclusive formatting */
 @media only screen and (min-width: 768px) {

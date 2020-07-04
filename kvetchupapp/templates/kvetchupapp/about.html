@@ -1,0 +1,29 @@
+{% extends 'kvetchupapp/base.html' %}
+
+{% block content %}
+<div class="content">
+    <h2>About</h2>
+
+    <p class="about">This site was created as a way to assist people complaining, or kvetching. It is often very difficult and time-consuming to find the customer service information when you are using a site. With Kvetchup, that becomes a little easier. The site is designed to be simple and effective. It gives you all the information you need while still maintaining a minimalist aesthetic.  </p><br>
+    <p> Don't like it? Send us an email or leave us a review. </p> <br>
+    <p> Thanks for using Kvetchup,</p> <br>
+    
+    <div class="profile_fields">
+        <div class="ceo">Dylan Lesniak, Kvetchup CEO</div>
+        
+        <div class="email" >
+            <div>Email Address: &ensp; info.kvetchup@gmail.com</div>
+        </div>
+    
+        {% if user.is_anonymous  %}
+        <div class="login_message" v-if="name">
+            <span class="login_notice">Please <a class="inline_link" href="{% url 'users:login' %}">log in</a> to send
+                emails.</span>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+
+{% endblock %}

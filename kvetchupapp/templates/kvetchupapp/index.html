@@ -1,0 +1,43 @@
+{% extends 'kvetchupapp/base.html' %}
+
+{% block content %}
+
+
+<div class="content">
+    <h2>Home</h2>
+    <div class="instruction">Please choose your corporate elite to rage against. </div>
+    <div class="select_section">
+        <select v-model="siteId" id="sites_drop_down">  
+            <option disabled value="Hello" selected>Choose a Site</option>
+            {% for site in sites %}
+                <option value="{{site.id}}">{{site.name}}</option>
+            {% endfor %}
+        </select>
+        <button v-on:click="getSiteView" class="rage">Rage</button>
+    </div>
+    <div class="profile_fields" v-if="name">
+        <div v-if="name">Name: &ensp; [[name]]</div>
+        <div v-if="phone_number != ''">Phone Number: &ensp; [[phone_number]]</div>
+        <div class="email" v-if="name">
+            <div v-if="email">Email Address: &ensp; [[email]]</div> 
+            <div v-if="!email">No listed email address. Please visit their website: &ensp; [[customer_support_site]] <br>See Additional Content for more info.</div> 
+        </div>
+        {% if user.is_authenticated %}
+        <div v-if="name">
+            <a v-bind:href="'mailto:' + [[email]]" class="send_email" v-if="email">Send Email</a>
+        </div>
+        {% endif %}
+        
+        {% if user.is_anonymous  %}
+        <div class="login_message" v-if="name">
+            <span class="login_notice">Please <a class="inline_link" href="{% url 'users:login' %}">log in</a>  to send emails.</span>
+        </div>
+        {% endif %}
+        <button v-on:click="displayAdditional" v-if="name">[[hide]] Additional Content</button>
+        <div class="additional_content" v-if="hide == 'Hide'">
+            <div v-if="url">Url: &ensp; [[url]]</div>
+
+        </div>
+    </div>    
+</div>
+{% endblock %}

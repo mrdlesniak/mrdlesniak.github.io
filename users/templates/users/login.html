@@ -1,0 +1,21 @@
+{% extends 'kvetchupapp/base.html' %}
+
+{% block content %}
+<div class="content">
+    {% if message == 'failure' %}
+    <h3 style="color:red">That username and password do not match</h3>
+    {% elif message == 'loggedout' %}
+    <h3 style="color:blue">Successfully logged out</h3>
+    {% endif %}
+    <h1>Login</h1>
+    <form action="{% url 'users:login_user' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{next}}"/>
+        <input type="text" name="username" value="" placeholder="username">
+        <input type="password" name="password" value="" placeholder="password">
+        <button type="submit">Login</button>
+    </form>
+    <a class="inline_link" href="{% url 'users:register' %}">Register</a>
+
+</div>
+{% endblock %}
