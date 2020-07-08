@@ -6,6 +6,8 @@ class Week(models.Model):
     week = models.CharField(max_length=200)
     year = models.CharField(max_length=200)
 
+    
+
     #gets the first day of the week (usually Monday)
     def week_beginning(self):
         start_and_end_of_week = self.get_start_and_end_date_from_calendar_week(self.year, self.week)
@@ -24,7 +26,7 @@ class Week(models.Model):
         return monday, monday + datetime.timedelta(days=6.9)
 
     def __str__(self):
-        return f"{self.week_beginning()} - {self.week_end()}"
+        return f"{self.week},  {self.week_beginning()} - {self.week_end()}"
 
 
 class Date(models.Model):

@@ -13,6 +13,9 @@ def index(request):
     all_activities = Activity.objects.all()
     all_weeks = Week.objects.order_by("-week")
 
+    for date in all_dates:
+        print(date.week.week_beginning())
+
     context = {
         "all_dates": all_dates,
         "all_applications": all_applications,
@@ -20,7 +23,7 @@ def index(request):
         "all_weeks": all_weeks,
     }
 
-    return render(request, 'unemployapp/index.html', context)
+    return render(request, 'jat/index.html', context)
 
 #takes new application from form in html and saves it
 #redirects back to homescreen
@@ -48,7 +51,7 @@ def new_app(request):
     application = Application(date=new_app_date, company_name=new_app_co_name, location=new_app_location, contact_method=new_app_contact_method, work_type=new_app_work_type, results=new_app_results)
     application.save()
 
-    return HttpResponseRedirect(reverse('unemployapp:index'))
+    return HttpResponseRedirect(reverse('jat:index'))
 
 
 #takes new activity from form in html and saves it
@@ -63,6 +66,7 @@ def new_act(request):
     if date_exists:
         new_act_date = Date.objects.get(date=new_act_date)
     else:
+        print(new_act_date)
         week = new_act_date.strftime("%V")
         week = save_new_week(week, new_act_date.year)
         new_date = Date(week=week, date=new_act_date)
@@ -74,7 +78,7 @@ def new_act(request):
     activity = Activity(date=new_act_date, activity=new_activity)
     activity.save()
     
-    return HttpResponseRedirect(reverse('unemployapp:index'))
+    return HttpResponseRedirect(reverse('jat:index'))
 
 #just checks if this date exists already
 def check_date(new_act_date):
@@ -101,9 +105,14 @@ def get_week_dict(all_dates):
 #checks if week already exists and saves a new one if not
 def save_new_week(week, year):
     all_week_objs = Week.objects.all()
-    if week not in all_week_objs:
+    all_weeks = []
+    for week_obj in all_week_objs:
+        all_weeks.append(week_obj.week)
+    if week not in all_weeks:
         print("yay, I'm here!")
         new_week = Week(week=week, year=year)
         new_week.save()
         return new_week
-    print("Oh dear god. What have I done??")
+    
+    week_obj = Week.objects.get(week=week)
+    return week_obj
