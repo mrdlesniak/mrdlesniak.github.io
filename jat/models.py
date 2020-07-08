@@ -6,27 +6,25 @@ class Week(models.Model):
     week = models.CharField(max_length=200)
     year = models.CharField(max_length=200)
 
-    
-
-    #gets the first day of the week (usually Monday)
+    #gets the first day of the week (usually sunday)
     def week_beginning(self):
         start_and_end_of_week = self.get_start_and_end_date_from_calendar_week(self.year, self.week)
-        week_beginning = start_and_end_of_week[0].strftime('%m/%d')
+        week_beginning = start_and_end_of_week[0].strftime('%m/%d/%Y')
         return week_beginning
 
-    #gets the last day of the week (usually Sunday)
+    #gets the last day of the week (usually saturday)
     def week_end(self):
         start_and_end_of_week = self.get_start_and_end_date_from_calendar_week(self.year, self.week)
-        week_end = start_and_end_of_week[1].strftime('%m/%d')
+        week_end = start_and_end_of_week[1].strftime('%m/%d/%Y')
         return week_end
 
-    #this function allows you to give a year and a week num and return the monday and sunday of that week
+    #this function allows you to give a year and a week num and return the sunday and sunday of that week
     def get_start_and_end_date_from_calendar_week(self, year, calendar_week):
-        monday = datetime.datetime.strptime(f'{year}-{calendar_week}-1', "%Y-%W-%w").date()
-        return monday, monday + datetime.timedelta(days=6.9)
+        sunday = datetime.datetime.strptime(f'{year}-{calendar_week}-0', "%Y-%W-%w").date()
+        return sunday, sunday + datetime.timedelta(days=6.9)
 
     def __str__(self):
-        return f"{self.week},  {self.week_beginning()} - {self.week_end()}"
+        return f"{self.week_beginning()} - {self.week_end()}"
 
 
 class Date(models.Model):

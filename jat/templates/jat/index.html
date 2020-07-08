@@ -71,7 +71,7 @@
                         {% for date in week.dates.all %}
                             {% for application in date.applications.all %}
                                 <div class="collapsible-body">
-                                    <b>{{date}} : Application</b>  {{application}} | {{application.location}} | {{application.contact_method}} | {{application.work_type}}
+                                    <b>{{date}} : Application</b>  {{application}} | {{application.location}} | {{application.contact_method}} | {{application.work_type}} | {{application.results}}
                                 </div>
                             {% endfor %}
                             {% for activity in date.activities.all %}

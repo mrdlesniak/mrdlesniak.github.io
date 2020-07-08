@@ -11,10 +11,7 @@ def index(request):
     all_dates = Date.objects.order_by("-date")
     all_applications = Application.objects.order_by("company_name")
     all_activities = Activity.objects.all()
-    all_weeks = Week.objects.order_by("-week")
-
-    for date in all_dates:
-        print(date.week.week_beginning())
+    all_weeks = Week.objects.order_by("-year", "-week")
 
     context = {
         "all_dates": all_dates,
@@ -36,8 +33,14 @@ def new_app(request):
     if date_exists:
         new_app_date = Date.objects.get(date=new_app_date)
     else:
-        week = new_date.week()
-        week = save_new_week(week, new_date.year)
+        week = new_app_date.strftime("%V")
+        year = new_app_date.year
+        if int(week) -2 >= 0:
+            week = str(int(week) -2) #don't know why datetime is going ahead by two weeks. 
+        elif int(week) -2 < 0: 
+            week = "51"
+            year = str(int(year) - 1)
+        week = save_new_week(week, year)
         new_date = Date(week=week, date=new_app_date)
         new_date.save()
         new_app_date = new_date
@@ -66,9 +69,14 @@ def new_act(request):
     if date_exists:
         new_act_date = Date.objects.get(date=new_act_date)
     else:
-        print(new_act_date)
         week = new_act_date.strftime("%V")
-        week = save_new_week(week, new_act_date.year)
+        year = new_act_date.year
+        if int(week) -2 >= 0:
+            week = str(int(week) -2) #don't know why datetime is going ahead by two weeks. 
+        elif int(week) -2 < 0: 
+            week = "51"
+            year = str(int(year) - 1)
+        week = save_new_week(week, year)
         new_date = Date(week=week, date=new_act_date)
         new_date.save()
         new_act_date = new_date
@@ -107,12 +115,10 @@ def save_new_week(week, year):
     all_week_objs = Week.objects.all()
     all_weeks = []
     for week_obj in all_week_objs:
-        all_weeks.append(week_obj.week)
+        all_weeks.append({week_obj.year: week_obj.week})
     if week not in all_weeks:
-        print("yay, I'm here!")
         new_week = Week(week=week, year=year)
         new_week.save()
         return new_week
     
     week_obj = Week.objects.get(week=week)
-    return week_obj
