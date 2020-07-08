@@ -6,6 +6,8 @@
     <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dorsa&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
     <!-- icon -->
     <link rel="shortcut icon" href="{% static 'kvetchupapp/icons/favicon.ico' %}" type="image/x-icon">
 
@@ -61,6 +63,24 @@
         <div class="bottom">
             <hr />
             <footer>
+                <!-- profile logo -->
+                <img class="dl_button" src="{% static 'portfolio/icons/favicon-white.ico' %}" type="image/png" v-on:click="resetToProject"></img>
+
+                <!-- modal to bring user back to profile projects page -->
+                <transition name="fade">
+                    <div v-if="toProject" class="modal_bg" v-on:click="resetToProject">
+                        <div class="to_project">
+                            <div class="project_modal_text">
+                                <p id="to_project_title">Would you like to return to the DL Projects page?</p>
+                                <div class="modal_buttons">
+                                    <a class="to_project_text" href="{% url 'portfolio:projects' %}">Yes</a>
+                                    <a class="to_project_text" >No</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
+
                 (c) Dylan Lesniak 2020
             </footer>
         </div>
@@ -96,6 +116,7 @@
                 usrnmError: false,
                 frstnmError: false,
                 lstnmError: false,
+                toProject: false,
             },
             methods: {
                 getSiteView: function () {
@@ -236,6 +257,13 @@
                 },
                 resetisSureDelete: function () {
                     this.isSureDelete = false
+                },
+                resetToProject: function () {
+                    if (this.toProject) {
+                        this.toProject = false
+                    } else {
+                        this.toProject = true
+                    }
                 },
             }
         })

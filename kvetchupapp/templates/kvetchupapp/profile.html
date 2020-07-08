@@ -39,11 +39,13 @@
         <form method="post" action="{% url 'kvetchupapp:edit' %}" class="profile_form" v-on:keydown.enter.prevent="checkValues">
             {% csrf_token %}
             
+            <!-- username. Checks for invalid entries -->
             <div class="profile_username">
                 <span v-if="edit_user">Username: &ensp; {{user.username | title}}</span>
                 <span v-bind:class="{error: usrnmError}" v-if="!edit_user">Username: &ensp; {{user.username | title}}<input type="text" name="user_name" v-model="userName" ></span>
                 <div v-if="!edit_user" class="requirements">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</div>
             </div>
+            <!-- self-explanatory sections. Can be edited. Checks for errors. -->
             <div class="first_name">
                 <span v-if="edit_user">First Name: &ensp; {{user.first_name}}</span>
                 <span v-bind:class="{error: frstnmError}" v-if="!edit_user">First Name: &ensp; {{user.first_name}}<input type="text" name="first_name" v-model="firstName"></span>
@@ -57,6 +59,7 @@
                 <span v-if="!edit_user">Email: &ensp; {{user.email}}</span>
             </div>
             
+            <!-- submit and cancel buttons are listed in class "edit_buttons" -->
             <div v-show="isSure" class="modal_bg" v-on:click="resetisSure">
                 <div class="modal">
                     <div class="modal_text">
@@ -70,6 +73,7 @@
             </div>
         </form>
 
+            <!-- modal pops  -->
             <div v-show="!isValid" class="modal_bg" v-on:click="resetValid">
                 <div class="modal">
                     <div class="modal_text">
@@ -78,19 +82,21 @@
                 </div>
             </div>
             
+        <!-- all the buttons for this section. Can switch to edit view. In edit view, can submit or cancel. -->
         <div class="edit_buttons">
             <button v-if="edit_user" v-on:click="editUserFunction">Edit</button>
             <button v-if="!edit_user" v-on:click="checkValues">Submit</button>
             <button id="cancel_edit" v-if="!edit_user" v-on:click="editUserFunction">Cancel</button>
         </div>
 
-        
+        <!-- displays all the user's reviews.  -->
         <div v-if="edit_user">
             <hr v-if="edit_user">
             <button v-if="edit_user" v-on:click="displayAdditional" >[[hide]] Reviews</button>
             <div class="additional_content" v-if="hide == 'Hide'">
                 {% for review in user.reviews.all %}
 
+                    <!-- allows user to edit or delete their review -->
                     <form action="{% url 'kvetchupapp:edit_review' %}" v-on:keydown.enter.prevent="checkReview" method="post">
                         {% csrf_token %}
                         <div class="review_section">
@@ -104,12 +110,12 @@
                                     <button class="review_edit" type="button" v-on:click="reviewNum = {{review.id}}" >Edit</button>
                                     <button class="delete" type="button" v-on:click="showDeleteModal();reviewNum = {{review.id}}">Delete</button>
                                 </div>
-                                <div class="edit_buttons" v-if="{{review.id}} == reviewNum && !isSureDelete">
-                                    <button class="review_edit" type="button" v-on:click="checkReview">Submit</button>
+                                <div class="review_edit" type="button" v-on:click="checkReview">Submit</button>
                                     <button type="button" class="delete" v-on:click="reviewNum = ''">Cancel</button>
                                 </div>
                             </div>
                         </div>
+                        <!-- modal to confirm submition -->
                         <div v-show="isSureReview" class="modal_bg" v-on:click="resetisSureReview">
                             <div class="modal">
                                 <div class="modal_text">
