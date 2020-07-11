@@ -1,0 +1,13 @@
+CHECKLIST.TXT
+
+Get localhost running X
+
+Get js and css working
+
+Get webapps configured with nginx
+
+Get AWS server running 
+
+Get SSL certs automated (using letsencrypt)
+
+Damish thinks that's it (but it wasn't)

@@ -1,23 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unemp</title>
+    <title>JAT</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    
-    <style type="text/css">
-        .btn{
-            width: 100%;
-            margin: 10px auto;
-        }
 
-        .content{
-            padding: 10px;
-            margin: 10px;
-        }
-    </style>
+    <!-- icon -->
+    <link rel="shortcut icon" href="{% static 'jat/icons/favicon.ico' %}" type="image/x-icon">
+    
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dorsa&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'jat/style.css' %}" />
+
 </head>
 <body>
     <!-- navbar section -->
@@ -86,7 +86,24 @@
 
         </ul>
         
+        <!-- profile logo -->
+        <img class="dl_button" src="{% static 'portfolio/icons/favicon-white.ico' %}" type="image/png"
+            v-on:click="resetToProject"></img>
 
+        <!-- modal back to profile projects page -->
+        <transition name="fade">
+            <div v-if="toProject" class="modal_bg" v-on:click="resetToProject">
+                <div class="to_project">
+                    <div class="project_modal_text">
+                        <p id="to_project_title">Would you like to return to the DL Projects page?</p>
+                        <div class="modal_buttons">
+                            <a class="to_project_text" href="{% url 'portfolio:projects' %}">Yes</a>
+                            <a class="to_project_text">No</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
     </div>
 
     <!-- JS Section -->
@@ -111,6 +128,7 @@
                 data: {
                     show_select: "Create Event",
                     application_or_activity: "", 
+                    toProject: false,
                 },
                 methods: {
                     showHideEvent: function () {
@@ -120,10 +138,14 @@
                             this.show_select = "Create Event"
                         }
                         console.log(this.show_select == 'Create Event')
+                    },  
+                    resetToProject: function () {
+                        if (this.toProject) {
+                            this.toProject = false
+                        } else {
+                            this.toProject = true
+                        }
                     },
-                    addEvent: function () {
-                        
-                    }
                 }
             })
     </script>
