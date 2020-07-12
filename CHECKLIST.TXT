@@ -2,12 +2,18 @@ CHECKLIST.TXT
 
 Get localhost running X
 
-Get js and css working
+Get js and css working X
 
-Get webapps configured with nginx
+Get webapps configured with nginx X
 
 Get AWS server running 
+    Route to domain name 
+    Deploy app to server
 
+Update django
+    
 Get SSL certs automated (using letsencrypt)
 
-Damish thinks that's it (but it wasn't)
+Damish thinks that's it (but it wasn't [in morgan freeman voice])
+
+fIx bUgs iN Web ApP 

@@ -2,11 +2,12 @@ version: '3'
 services:
   web:
     build: .
-    command: bash -c "python manage.py collectstatic && python manage.py makemigrations && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key personal_portfolio.wsgi:application --bind 0.0.0.0:443"
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key personal_portfolio.wsgi:application --bind 0.0.0.0:443"
     container_name: hello_earth
     volumes:
       - ./code:/src
       - ./config/nginx/certs/:/etc/certs
+      - /static:/static
     expose:
         - "443"
   nginx:
@@ -17,5 +18,13 @@ services:
       - "80:80"
     volumes:
       - ./config/nginx/:/etc/nginx/conf.d
+      - /static:/static
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     depends_on:
       - web
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
