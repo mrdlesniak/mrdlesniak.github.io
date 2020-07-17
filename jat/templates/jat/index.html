@@ -42,7 +42,8 @@
                 <div id="activity_form" v-show="application_or_activity == 'activity'">
                     <form action="{% url 'jat:new_act' %}" method="post">
                         {% csrf_token %}
-                        <input type="date" name="new_act_date" id="" required>
+                        <input type="text" name="new_act_date" class="datepicker" placeholder="Date" required>
+                        <!-- <input type="date" name="new_act_date" id="" required> -->
                         <input type="text" name="new_activity" id="" placeholder="Activity Description" required>
                         <button class="teal lighten-2 btn">Submit</button>
                     </form>
@@ -52,7 +53,8 @@
                 <div id="application_form" v-show="application_or_activity == 'application'">
                     <form action="{% url 'jat:new_app' %}" method="post">
                         {% csrf_token %}
-                        <input type="date" name="new_app_date" id="" required>
+                        <input type="text" name="new_app_date" class="datepicker" placeholder="Date" required>
+                        <!-- <input type="date" name="new_app_date" id="" required> -->
                         <input type="text" name="new_app_co_name" id="" placeholder="Company" required>
                         <input type="text" name="new_app_location" id="" placeholder="Location" required>
                         <input type="text" name="new_app_contact_method" placeholder="Contact Method" required>
@@ -112,14 +114,25 @@
     <!-- Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+        // accordion
         document.addEventListener('DOMContentLoaded', function () {
                 var elems = document.querySelectorAll('.collapsible');
                 var instances = M.Collapsible.init(elems);
             });
-
+        
         document.addEventListener('DOMContentLoaded', function () {
                 var elems = document.querySelectorAll('select');
                 var instances = M.FormSelect.init(elems);
+            });
+
+        // date picker
+        document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('.datepicker');
+                var instances = M.Datepicker.init(elems, {
+                    format:"2020-mm-dd", 
+                    autoClose: true,
+                    min: new Date(1000, 0, 1),
+                    max: new Date(3000, 0, 1)});
             });
 
         let app = new Vue({

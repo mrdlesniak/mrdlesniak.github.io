@@ -133,6 +133,7 @@ body{
     top: 0px;
     transition: top ease 0.5s;
     overflow: hidden;
+    padding: 10px;
 }
 
 .project:hover{

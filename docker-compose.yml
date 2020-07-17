@@ -28,3 +28,13 @@ services:
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+  db:
+    image: db
+    volumes: 
+      - ./database/db.sqlite3:var/lib/db
+  backup:
+    image: backup-service
+    volumes:
+      - ./database/db.sqlite3:var/lib/backup/data
+volumes:
+  data-volume: 

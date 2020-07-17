@@ -25,7 +25,7 @@ SECRET_KEY = '+l$*(=f-y9cz&_q346t7&(7(xkoct20+gz(43bu22kl%pp^%o&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','web']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','web', 'dylanlesniak.com', 'www.dylanlesniak.com']
 
 
 # Application definition
@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'personal_portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': './database/db.sqlite3',
     }
 }
 

@@ -34,12 +34,16 @@ def new_app(request):
         new_app_date = Date.objects.get(date=new_app_date)
     else:
         week = new_app_date.strftime("%V")
-        year = new_app_date.year
+        year = str(new_app_date.year)
         if int(week) -2 >= 0:
             week = str(int(week) -2) #don't know why datetime is going ahead by two weeks. 
         elif int(week) -2 < 0: 
             week = "51"
             year = str(int(year) - 1)
+        if int(year) > 9999:
+            year = "9999"
+        elif int(year) < 1000:
+            year = "1000"
         week = save_new_week(week, year)
         new_date = Date(week=week, date=new_app_date)
         new_date.save()
@@ -62,20 +66,25 @@ def new_app(request):
 def new_act(request):
     new_act_date = request.POST['new_act_date']
     new_act_date = datetime.datetime.strptime(new_act_date, '%Y-%m-%d').date()
-    
 
     date_exists = check_date(new_act_date)
-
+    # checks if date exists. If it does, use the existing date object. 
+    #If not, create one. 
     if date_exists:
         new_act_date = Date.objects.get(date=new_act_date)
     else:
         week = new_act_date.strftime("%V")
-        year = new_act_date.year
+        year = str(new_act_date.year)
         if int(week) -2 >= 0:
-            week = str(int(week) -2) #don't know why datetime is going ahead by two weeks. 
+            week = str(int(week) -2) #Datetime goes ahead by at least one week since Jan 1 is rarely sunday.  
         elif int(week) -2 < 0: 
             week = "51"
             year = str(int(year) - 1)
+        #makes sure years aren't in a range that will break the database
+        if int(year) > 9999:
+            year = "9999"
+        elif int(year) < 1000:
+            year = "1000"
         week = save_new_week(week, year)
         new_date = Date(week=week, date=new_act_date)
         new_date.save()
@@ -97,28 +106,22 @@ def check_date(new_act_date):
             return True
     return False
 
-def get_week_dict(all_dates):
-    week_dict = {}
-
-    for date in all_dates:
-        week = date.week()
-
-        if week in week_dict:
-            week_dict[week].append(date)
-        else:
-            week_dict[week] = [date]
-
-    return week_dict
-
 #checks if week already exists and saves a new one if not
 def save_new_week(week, year):
     all_week_objs = Week.objects.all()
-    all_weeks = []
+    all_weeks = {}
     for week_obj in all_week_objs:
-        all_weeks.append({week_obj.year: week_obj.week})
-    if week not in all_weeks:
-        new_week = Week(week=week, year=year)
-        new_week.save()
-        return new_week
+        if week_obj not in all_weeks:
+            all_weeks[week_obj.year] = week_obj.week
+        else:
+            all_weeks[week_obj.year].append(week_obj.week)
+    print("all_weeks: ", all_weeks)
+    print("year: ", type(year))
+    print("week: ", week)
+    if year in all_weeks and week in all_weeks[year]:
+        week_obj = Week.objects.get(week=week)
+        return week_obj
     
-    week_obj = Week.objects.get(week=week)
+    new_week = Week(week=week, year=year)
+    new_week.save()
+    return new_week
