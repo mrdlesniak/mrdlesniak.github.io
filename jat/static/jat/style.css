@@ -1,3 +1,9 @@
+.logo{
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+}
+
 .btn{
     width: 100%;
     margin: 10px auto;
@@ -97,4 +103,5 @@
         font-size: 70px;
     }
     .to_project{width: 33%;}
+    .logo{font-size: 40px;}
 }
