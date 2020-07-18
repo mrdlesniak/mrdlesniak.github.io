@@ -31,10 +31,10 @@ services:
   db:
     image: db
     volumes: 
-      - ./database/db.sqlite3:var/lib/db
+      - ./database/db:var/lib/db
   backup:
     image: backup-service
     volumes:
-      - ./database/db.sqlite3:var/lib/backup/data
+      - ./database/db:var/lib/backup/data
 volumes:
   data-volume: 
