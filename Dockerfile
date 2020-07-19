@@ -1,5 +1,5 @@
 # Use Python 3.6.9 as a base image
-FROM python:3.6.9
+From python:3.6.9
 # Prevent Docker from outputting to stdout
 ENV PYTHONBUFFERED 1
 # Make a directory called "code" which will contain the source code. This will be used as a volume in our docker-compose.yml file

@@ -8,6 +8,7 @@ services:
       - ./code:/src
       - ./config/nginx/certs/:/etc/certs
       - /static:/static
+      - ./database:/code/database
     expose:
         - "443"
   nginx:
@@ -28,13 +29,3 @@ services:
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
-  db:
-    image: db
-    volumes: 
-      - ./database/db:var/lib/db
-  backup:
-    image: backup-service
-    volumes:
-      - ./database/db:var/lib/backup/data
-volumes:
-  data-volume: 
