@@ -10,14 +10,12 @@ from users.models import User
 class Site(models.Model):
     name = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
-    email = models.EmailField(max_length=254, default="", blank=True)
-    customer_support_page = models.URLField(max_length=200, default="", blank=True)
     phone_number = models.CharField(max_length=200, default="xxx-xxx-xxxx")
+    customer_support_page = models.URLField(max_length=200, default="", blank=True)
+    email = models.EmailField(max_length=254, default="", blank=True)
     #each site can have many reviews from many users. 
     #users can have many reviews to many sites.
     #reviews can have only one user and only one site. 
-
-
 
     class Meta:
         ordering = ['name']
