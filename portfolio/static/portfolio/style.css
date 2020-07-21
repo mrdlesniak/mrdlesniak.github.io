@@ -12,7 +12,7 @@
 
 .title{
     font-family: 'Dorsa', sans-serif;
-    font-size: 150px;
+    font-size: 100px;
     align-items: center;
     margin: 0;
     padding: 0; 
@@ -67,6 +67,7 @@ body{
     font-family: 'Raleway', sans-serif;
 }
 
+/* keyframs to fade content in after loading */
 .content {
     padding: 80px 10px 10px 10px;
     margin: 5px;
@@ -142,14 +143,16 @@ body{
 
 .project_links{
     color: grey;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .project_links:hover{
+    text-decoration: underline;
     color: #595959;
 }
 
 .project_links:active{
+    text-decoration: underline;
     color: black;
 }
 
@@ -163,8 +166,35 @@ body{
     color: #004d40;
 }
 
+/* resume page */
+.resume_text{
+    text-align: center;
+}
+
+
+.resume_icon_container{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.resume_icon{
+    transition: 0.3s;
+    padding: 50px;
+}
+
+.resume_icon:hover{
+    border: 5px dashed grey;
+    border-radius: 10%;
+}
+
+.resume_icon:active{
+    transform: translateY(5px);
+}
+
 /* desktop exclusive formatting */
 @media only screen and (min-width: 768px) {
+    .title{font-size: 150px;}
     .project_box{flex-direction: row;}
     .project_area{
         width: 400px;

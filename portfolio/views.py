@@ -13,3 +13,9 @@ def projects(request):
         "activate": "projects",
     }
     return render(request, 'portfolio/projects.html', context)
+
+def resume(request):
+    context = {
+        "activate": "resume",
+    }
+    return render(request, 'portfolio/resume.html', context)

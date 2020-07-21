@@ -1,0 +1,16 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+{% load static %}
+<div class="content">
+    <h2 class="resume_text">Download my resume <a class="project_links" href="{% static 'portfolio/dylan_lesniak_resume_2020.pdf' %}" download>here</a></h2>
+    
+    <div class="resume_icon_container">
+        <a class="resume_icon" href="{% static 'portfolio/dylan_lesniak_resume_2020.pdf' %}" download>
+            <img class="dl_button" src="{% static 'portfolio/icons/resume.png' %}" type="image/png"
+                v-on:click="resetToProject"></img>
+        </a>
+
+    </div>
+</div>
+
+{% endblock %}
