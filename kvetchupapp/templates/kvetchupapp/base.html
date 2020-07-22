@@ -40,12 +40,14 @@
                     {% else %}
                         <a class="inline_link" href="{% url 'users:login' %}">Login</a>
                         {% if message == 'True' %}
-                            <a class="modal_bg" href="{% url 'kvetchupapp:index' %}">
-                                <div class="modal">
-                                    <div class="modal_text">You Have Successfully</div>
-                                    <div class="modal_text">Logged Out</div>
-                                </div>
-                            </a>
+                            <transition name="fade">
+                                <a class="modal_bg" href="{% url 'kvetchupapp:index' %}">
+                                    <div class="modal">
+                                        <div class="modal_text">You Have Successfully</div>
+                                        <div class="modal_text">Logged Out</div>
+                                    </div>
+                                </a>
+                            </transition>
                         {% endif %}
                     {% endif %}
                 </div>

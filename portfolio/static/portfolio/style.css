@@ -166,6 +166,75 @@ body{
     color: #004d40;
 }
 
+#dl{
+    font-family: 'Dorsa', sans-serif; 
+    color: black;
+    cursor: pointer;
+}
+
+/* modal */
+.to_project{
+    z-index: 5;
+    position: relative;
+    width: 66%;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 2px solid black;
+}
+
+#to_project_title{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    text-decoration: underline;
+}
+
+.project_modal_text{
+    color: black;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+.to_project_text{
+    color: grey;
+    background-color: white;
+    text-decoration: underline;
+    font-size: 30px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.to_project_text:hover{
+    color: #595959;
+}
+
+.to_project_text:active{
+    color: black;
+}
+
+.modal_bg{
+    z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 110vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, .5);
+    text-decoration: none;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .5s;
+}
+.fade-enter, .fade-leave-to  {
+  transition: all .5s;
+  opacity: 0;
+  height: 0;
+}
+
 /* resume page */
 .resume_text{
     text-align: center;
@@ -201,4 +270,15 @@ body{
         height: 400px;
     }
     .project{padding: 100px 50px 50px 50px}
+    #to_project_title{
+        font-family: 'Dorsa', sans-serif;
+        font-size: 70px;
+        margin: 10px;
+        text-decoration: underline;
+    }
+    .to_project{
+        width: 33%;
+        padding: 65px;
+    }
+    #dl{font-size: 50px;}
 }

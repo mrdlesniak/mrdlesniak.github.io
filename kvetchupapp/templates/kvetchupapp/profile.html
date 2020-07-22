@@ -4,31 +4,37 @@
 <div class="content">
     <!-- modal for after editing -->
     {% if message == 'True' %}
-    <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
-        <div class="modal">
-            <div class="modal_text">Profile Edited Successfully</div>
-        </div>
-    </a>
+        <transition name="fade">
+            <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
+                <div class="modal">
+                    <div class="modal_text">Profile Edited Successfully</div>
+                </div>
+            </a>
+        </transition>
     {% endif %}
 
     <!-- modal for if user edits username to one that already exists -->
     {% if message == 'exists' %}
-    <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
-        <div class="modal">
-            <div class="modal_text">Username Already Exists</div>
-            <div class="modal_text">Please Try Again</div>
-        </div>
-    </a>
+        <transition name="fade">
+            <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
+                <div class="modal">
+                    <div class="modal_text">Username Already Exists</div>
+                    <div class="modal_text">Please Try Again</div>
+                </div>
+            </a>
+        </transition>
     {% endif %}
 
     <!-- modal for if user deleted a review -->
     {% if message == 'deleted' %}
-    <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
-        <div class="modal">
-            <div class="modal_text">Review Was </div>
-            <div class="modal_text">Successfully Deleted</div>
-        </div>
-    </a>
+        <transition name="fade">
+            <a class="modal_bg" href="{% url 'kvetchupapp:profile' %}">
+                <div class="modal">
+                    <div class="modal_text">Review Was </div>
+                    <div class="modal_text">Successfully Deleted</div>
+                </div>
+            </a>
+        </transition>
     {% endif %}
 
     <!-- display of user information -->
@@ -60,28 +66,31 @@
             </div>
             
             <!-- submit and cancel buttons are listed in class "edit_buttons" -->
-            <div v-show="isSure" class="modal_bg" v-on:click="resetisSure">
-                <div class="modal">
-                    <div class="modal_text">
-                        <p>Are you sure?</p>
-                        <div class="modal_buttons">
-                            <button type="submit">Submit</button>
-                            <button id="cancel_edit" type="button" v-on:click="resetisSure">Cancel</button>
+            <transition name="fade">
+                <div v-show="isSure" class="modal_bg" v-on:click="resetisSure">
+                    <div class="modal">
+                        <div class="modal_text">
+                            <p>Are you sure?</p>
+                            <div class="modal_buttons">
+                                <button type="submit">Submit</button>
+                                <button id="cancel_edit" type="button" v-on:click="resetisSure">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </transition>
         </form>
 
             <!-- modal pops  -->
-            <div v-show="!isValid" class="modal_bg" v-on:click="resetValid">
-                <div class="modal">
-                    <div class="modal_text">
-                        <p>Invalid Entry</p>
+            <transition name="fade">
+                <div v-show="!isValid" class="modal_bg" v-on:click="resetValid">
+                    <div class="modal">
+                        <div class="modal_text">
+                            <p>Invalid Entry</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
+            </transition>
         <!-- all the buttons for this section. Can switch to edit view. In edit view, can submit or cancel. -->
         <div class="edit_buttons">
             <button v-if="edit_user" v-on:click="editUserFunction">Edit</button>
@@ -116,18 +125,20 @@
                             </div>
                         </div>
                         <!-- modal to confirm submition -->
-                        <div v-show="isSureReview" class="modal_bg" v-on:click="resetisSureReview">
-                            <div class="modal">
-                                <div class="modal_text">
-                                    <p>Submit?</p>
-                                    <div class="modal_buttons">
-                                        <input type="hidden" v-model="reviewNum" name="review_id">
-                                        <button type="submit">Submit</button>
-                                        <button id="cancel_edit" type="button" v-on:click="resetisSure">Cancel</button>
+                        <transition name="fade">
+                            <div v-show="isSureReview" class="modal_bg" v-on:click="resetisSureReview">
+                                <div class="modal">
+                                    <div class="modal_text">
+                                        <p>Submit?</p>
+                                        <div class="modal_buttons">
+                                            <input type="hidden" v-model="reviewNum" name="review_id">
+                                            <button type="submit">Submit</button>
+                                            <button id="cancel_edit" type="button" v-on:click="resetisSure">Cancel</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </transition>
                     </form>
                 {% endfor %}
             </div>
@@ -138,19 +149,20 @@
 
         <form action="{% url 'kvetchupapp:delete_review' %}" method="post">
             {% csrf_token %}
-
-            <div v-show="isSureDelete" class="modal_bg" v-on:click="resetisSureDelete">
-                <div class="modal">
-                    <div class="modal_text">
-                        <p>Are you sure?</p>
-                        <div class="modal_buttons">
-                            <input type="hidden" v-model="reviewNum" name="review_id">
-                            <button type="submit">Delete</button>
-                            <button id="cancel_edit" type="button" v-on:click="resetisSureDelete(); reviewNum=''">Cancel</button>
+            <transition name="fade">
+                <div v-show="isSureDelete" class="modal_bg" v-on:click="resetisSureDelete">
+                    <div class="modal">
+                        <div class="modal_text">
+                            <p>Are you sure?</p>
+                            <div class="modal_buttons">
+                                <input type="hidden" v-model="reviewNum" name="review_id">
+                                <button type="submit">Delete</button>
+                                <button id="cancel_edit" type="button" v-on:click="resetisSureDelete(); reviewNum=''">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </transition>
         </form>
 
     </div>

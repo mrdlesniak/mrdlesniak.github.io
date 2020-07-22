@@ -349,12 +349,14 @@ button:active {
     transform: translate(-50%, -50%);
     padding: 20px;
     background-color: white;
-    border: 5px solid grey;
+    border: 2px solid black;
 }
 
 #to_project_title{
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
+    text-decoration: underline;
+
 }
 
 .project_modal_text{
@@ -425,8 +427,8 @@ button:active {
     #cancel_edit{margin: 10px 0 10px 10px;}
     .delete{margin: 10px 0 10px 5px;}
     .review_edit{margin: 10px 0 10px 5px;}
-    /*  */
     input {font-size: 20px;}
+    /* dl */
     .to_project{width: 33%;}
     #to_project_title{
         font-family: Dorsa, sans-serif;

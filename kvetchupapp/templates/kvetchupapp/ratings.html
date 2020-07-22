@@ -3,11 +3,13 @@
 {% block content %}
 <div class="content">
     {% if message == 'True' %}
-    <a class="modal_bg" href="{% url 'kvetchupapp:ratings' %}">
-        <div class="modal">
-            <div class="modal_text">Review Submitted Successfully</div>
-        </div>
-    </a>
+    <transition name="fade">
+        <a class="modal_bg" href="{% url 'kvetchupapp:ratings' %}">
+            <div class="modal">
+                <div class="modal_text">Review Submitted Successfully</div>
+            </div>
+        </a>
+    </transition>
     {% endif %}
     <h2>Reviews</h2>
     <div class="instruction">Please choose corporation to get reviews for. </div>

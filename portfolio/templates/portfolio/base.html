@@ -19,32 +19,55 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'portfolio/icons/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'portfolio/icons/site.webmanifest' %}">
 
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 <body>
+    <div id="app">
     
-    
-    <!-- main header section -->
-    <div class="navbar">
-        <div class="logo">
-            <nav>
-                <p class="title">Dyl<span style="color:grey">a</span>n Lesni<span style="color:grey">a</span>k</h1>
-                
-            </nav>
+        <!-- main header section -->
+        <div class="navbar">
+            <div class="logo">
+                <nav>
+                    <p class="title">Dyl<span style="color:grey">a</span>n Lesni<span style="color:grey">a</span>k</h1>
+                    
+                </nav>
 
+            </div>
+            
+            <div class="menu_section">
+                <a {% if activate == 'about' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:index' %}">About</a>
+                <a {% if activate == 'projects' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:projects' %}">Projects</a>
+                <a {% if activate == 'resume' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:resume' %}">Resume</a>
+            </div>
+            <hr>
         </div>
-        
-        <div class="menu_section">
-            <a {% if activate == 'about' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:index' %}">About</a>
-            <a {% if activate == 'projects' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:projects' %}">Projects</a>
-            <a {% if activate == 'resume' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:resume' %}">Resume</a>
-        </div>
-        <hr>
-    </div>
-    <div class=background>
         {% block content %}
-        {% endblock %}
+        {% endblock %}   
+    </div>
+    <!-- js section -->
+    
+    <script>
+        var app = new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data: {
+            toProject: false,
+        },
+        methods: {
+            resetToProject: function () {
+                if (this.toProject) {
+                    this.toProject = false
+                } else {
+                    this.toProject = true
+                }
+            },
+        }
+        })
 
-    </div>    
+    </script>
+
     <!-- main footer section-->
 </body>
 </html>

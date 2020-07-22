@@ -1,9 +1,11 @@
 {% extends 'portfolio/base.html' %}
 {% block content %}
 <div class="content">
+    <!-- uses flexboxes to properly display the project slides -->
     <h1 class="flexboxes">Projects</h1>
     <hr class="flexboxes h1hr">
 
+    <!-- each individual project slide -->
     <div class="project_box">
         <div class="project_area">
             <div class="project">
@@ -11,7 +13,7 @@
                 <p >Kvetchup is a simple app designed to help people complain to and rate certain companies.</p>
                 <br>
                 <p ><i> Python, Django, SQLite, Vue.js, Axios, HTML, CSS</i></p>
-                <a class="project_links" href="https://github.com/mrdlesniak/Kvetchup-Capstone">source @ github</a>
+                <a class="project_links" href="https://github.com/mrdlesniak/mrdlesniak.github.io/tree/master/jat">source @ github</a>
 
             </div>
         </div>
@@ -25,6 +27,30 @@
                 <a class="project_links" href="https://github.com/mrdlesniak/unemployment_organizer">source @ github</a>
             </div>
         </div>
+
+        <div class="project_area">
+            <div class="project">
+                <a id="dl" v-on:click="resetToProject">DylanLesniak.com</a> 
+                <p>My personal portfolio site.</p>
+                <br>
+                <p><i> Python, Django, SQLite, Vue.js, HTML, CSS, AWS Ec2, Nginx, Docker</i></p>
+                <a class="project_links" href="https://github.com/mrdlesniak/mrdlesniak.github.io">source @ github</a>
+            </div>
+        </div>
+
+
     </div>
+
+    <!-- modal from Dylan Lesniak slide -->
+    <transition name="fade">
+        <div v-if="toProject" class="modal_bg" v-on:click="resetToProject">
+            <div class="to_project">
+                <div class="project_modal_text">
+                    <p id="to_project_title">Sorry bud, you're already here.</p>
+                    <p>Check out my other projects though!</p>
+                </div>
+            </div>
+        </div>
+    </transition>
 </div>
 {% endblock %}
