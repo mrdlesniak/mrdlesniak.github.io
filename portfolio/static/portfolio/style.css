@@ -1,3 +1,4 @@
+/* base */
 * {
     margin: 0;
     padding: 0;
@@ -61,6 +62,22 @@ hr{
     margin: 0px;
 }
 
+footer{
+    padding: 35px 0 35px 20px;
+    color: grey;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+footer > a{
+    padding: 10px;
+}
+
+#app{
+    min-height: 100vh;
+}
+
 /* body */
 body{
     background-color: white;
@@ -113,13 +130,15 @@ body{
 /* about page */
 h3{
     font-size: 25px;
+    text-align: center;
 }
 
 .about{
     font-size: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
+    text-align: center;
 }
 
 .about_text{
@@ -129,13 +148,15 @@ h3{
 #below_text{
     color: black;
     background: black;
-    height: 2px;
+    visibility: hidden;
 }
 
 #dylan_pic{
     width: 200px;
     justify-self: center;
     border: 2px solid black;
+    margin-top: 30px;
+    margin-bottom: 10px;    
 }
 
 /* projects page */
@@ -291,6 +312,7 @@ h3{
 
 /* desktop exclusive formatting */
 @media only screen and (min-width: 768px) {
+    footer{flex-direction:row;}
     .title{font-size: 150px;}
     .project_box{flex-direction: row;}
     .project_area{
@@ -311,6 +333,7 @@ h3{
     .about{
         flex-direction: row;
         padding: 60px;
+        text-align: left;
     }
     #dylan_pic{
         width: 400px;
@@ -323,5 +346,7 @@ h3{
         margin-top: 20px;
         margin-left: 150px;
         margin-right: 150px;
+        height: 2px;
+        visibility: visible;
     }
 }
