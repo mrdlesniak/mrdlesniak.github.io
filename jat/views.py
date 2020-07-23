@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from .models import Date, Application, Activity, Week
 import datetime
 import calendar 
@@ -36,10 +37,11 @@ def new_app(request):
         week = new_app_date.strftime("%V")
         year = str(new_app_date.year)
         if int(week) -2 >= 0:
-            week = str(int(week) -2) #don't know why datetime is going ahead by two weeks. 
+            week = str(int(week) -2) #Datetime goes ahead by at least one week since Jan 1 is rarely sunday.  
         elif int(week) -2 < 0: 
             week = "51"
             year = str(int(year) - 1)
+        #makes sure years aren't in a range that will break the database
         if int(year) > 9999:
             year = "9999"
         elif int(year) < 1000:
@@ -106,22 +108,21 @@ def check_date(new_act_date):
             return True
     return False
 
-#checks if week already exists and saves a new one if not
+# tries to grab a week object. If it can't, it creates one.
+# uses imported django exceptions. 
 def save_new_week(week, year):
-    all_week_objs = Week.objects.all()
-    all_weeks = {}
-    for week_obj in all_week_objs:
-        if week_obj not in all_weeks:
-            all_weeks[week_obj.year] = week_obj.week
-        else:
-            all_weeks[week_obj.year].append(week_obj.week)
-    print("all_weeks: ", all_weeks)
-    print("year: ", type(year))
-    print("week: ", week)
-    if year in all_weeks and week in all_weeks[year]:
-        week_obj = Week.objects.get(week=week)
+    try:
+        week_obj = Week.objects.get(week=week, year=year)
         return week_obj
+    except ObjectDoesNotExist:
+        new_week = Week(week=week, year=year)
+        new_week.save()
+        return new_week
+    except MultipleObjectsReturned:
+        raise Exception("Multiple weeks. Oh no.")
+    except:
+        print("If try succeeds, then it escapes. If it doesn't, it should get to DoesNotExist every time. I don't know how we got here, but let's get to work! ")
+        raise Exception("Bad Ending")
+
+
     
-    new_week = Week(week=week, year=year)
-    new_week.save()
-    return new_week
