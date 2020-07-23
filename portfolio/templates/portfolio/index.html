@@ -1,5 +1,6 @@
 {% extends 'portfolio/base.html' %}
 {% block content %}
+{% load static %}
 <div class="content">
     <div class="flexboxes">
         <h1>About me</h1>
@@ -8,9 +9,22 @@
     <br>
     
     <div class="flexboxes">
-        <p>I'm a programmer and I do program things! I'm currently located in Portland, Oregon.</p>
+        <h3>I'm a programmer and I do program things! I'm currently located in Portland, Oregon.</h3>
+    </div>
+    <div class="about">
+        <div class="text">
+            <p class="about_text">
+                I have over 5 years' experience as a project manager and property director. I even have one year of experience as an English teacher in Japan!
+                At the beginning of 2019 I made a big change in my life and began studying programming. I wanted something fun where I could challenge myself and secure an opportunity to build towards the future. While I'm looking primarily for a backend role, I hope you can see from this website that I am passionate about every level of the stack. 
+            </p>
+    
+            <p class="about_text">
+                When I'm not working I like to sing, study Japanese, and play video games. I've started cooking since lockdown began, which I think makes my mom very proud. I've lived in 
+            </p>
+            <hr id="below_text">
+        </div>
+        <img id="dylan_pic" src="{% static 'portfolio/pictures/dylan_calray_bandw.jpg' %}" type="image/png">
+
     </div>
 </div>
-
-    
 {% endblock %}

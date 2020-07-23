@@ -110,7 +110,33 @@ body{
     margin: 10px auto 100px auto;
 }
 
+/* about page */
+h3{
+    font-size: 25px;
+}
 
+.about{
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about_text{
+    padding: 20px;
+}
+
+#below_text{
+    color: black;
+    background: black;
+    height: 2px;
+}
+
+#dylan_pic{
+    width: 200px;
+    justify-self: center;
+    border: 2px solid black;
+}
 
 /* projects page */
 .project_box{
@@ -170,6 +196,8 @@ body{
     font-family: 'Dorsa', sans-serif; 
     color: black;
     cursor: pointer;
+    font-weight: normal;
+    font-size: 50px;
 }
 
 /* modal */
@@ -280,5 +308,20 @@ body{
         width: 33%;
         padding: 65px;
     }
-    #dl{font-size: 50px;}
+    .about{
+        flex-direction: row;
+        padding: 60px;
+    }
+    #dylan_pic{
+        width: 400px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        justify-self: center;
+    }
+    #below_text{
+        margin-top: 20px;
+        margin-left: 150px;
+        margin-right: 150px;
+    }
 }
