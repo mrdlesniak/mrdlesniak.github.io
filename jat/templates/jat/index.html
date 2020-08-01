@@ -33,13 +33,13 @@
             <!-- select form type -->
             <div class="input-field" v-show="show_select != 'Create Event'">
                 <select v-model="application_or_activity"> 
-                    <option value="" disabled selected>Choose Form Type</option>
+                    <option value="" disabled selected>Choose Event</option>
                     <option value="activity">Activity</option>
                     <option value="application">Application</option>
                 </select>
             </div>
                 <!-- activity form -->
-                <div id="activity_form" v-show="application_or_activity == 'activity'">
+                <div id="activity_form" v-show="application_or_activity == 'activity' && show_select != 'Create Event'">
                     <form action="{% url 'jat:new_act' %}" method="post">
                         {% csrf_token %}
                         <input type="text" name="new_act_date" class="datepicker" placeholder="Date" required>
@@ -50,7 +50,7 @@
                 </div>
 
                 <!-- application form -->
-                <div id="application_form" v-show="application_or_activity == 'application'">
+                <div id="application_form" v-show="application_or_activity == 'application' && show_select != 'Create Event'">
                     <form action="{% url 'jat:new_app' %}" method="post">
                         {% csrf_token %}
                         <input type="text" name="new_app_date" class="datepicker" placeholder="Date" required>
@@ -149,8 +149,8 @@
                             this.show_select = "Hide Event Creator"
                         } else {
                             this.show_select = "Create Event"
+                            this.application_or_activity = ""
                         }
-                        console.log(this.show_select == 'Create Event')
                     },  
                     resetToProject: function () {
                         if (this.toProject) {
