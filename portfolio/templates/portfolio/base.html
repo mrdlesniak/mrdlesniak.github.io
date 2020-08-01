@@ -28,19 +28,16 @@
     
         <!-- main header section -->
         <div class="navbar">
-            <div class="logo">
-                <nav>
+                <nav class="logo">
                     <p class="title">Dyl<span style="color:grey">a</span>n Lesni<span style="color:grey">a</span>k</h1>
                     
                 </nav>
-
-            </div>
             
-            <div class="menu_section">
+            <nav class="menu_section">
                 <a {% if activate == 'about' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:index' %}">About</a>
                 <a {% if activate == 'projects' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:projects' %}">Projects</a>
                 <a {% if activate == 'resume' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:resume' %}">Resume</a>
-            </div>
+            </nav>
             <hr>
         </div>
         {% block content %}
