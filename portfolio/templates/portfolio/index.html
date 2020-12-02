@@ -29,6 +29,48 @@
         </div>
         
     </div>
+    
+    <div id="slideshow_section">
+        <h3>Now For a Personal Experience!</h3>
+        <p>To let you see a little more about my hobbies and what I'm passionate about, please take a look at some of the photos I've accumulated through some of my adventures.</p>
+
+        <div id="slides_and_buttons">
+            
+            <button class="arrow_button left_arrow" onclick="plusDivs(-1)">&#10094;</button>
+            <div id="slideshow">
+                <img class="pic_slide" src="{% static 'portfolio/pictures/brooklyn_bridge.jpg' %}" >
+                <img class="pic_slide" src="{% static 'portfolio/pictures/canby_fall.jpg' %}" >
+                <img class="pic_slide" src="{% static 'portfolio/pictures/fuji_climbers.jpg' %}" >
+                <img class="pic_slide" src="{% static 'portfolio/pictures/fuji_koi_nobori.jpg' %}" >
+            </div>
+            <button class="arrow_button right_arrow" onclick="plusDivs(1)">&#10095;</button>
+
+        </div>
+        
+    </div>
+    
     <h2 id="welcome">Welcome to my site!</h2>
 </div>
+
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("pic_slide");
+        if (n > x.length) {slideIndex = 1};
+        if (n < 1) {slideIndex = x.length};
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none"
+        }
+        x[slideIndex-1].style.display = "block"
+    }
+
+
+</script>
 {% endblock %}

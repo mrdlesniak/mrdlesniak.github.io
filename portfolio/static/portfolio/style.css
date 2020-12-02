@@ -154,6 +154,81 @@ h3{
     margin-bottom: 10px;    
 }
 
+#slideshow_section{
+    width: 800px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+#slides_and_buttons{
+    box-shadow: 0px 5px 10px 5px grey;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 80%;
+}
+
+#slide_background{
+    height: 100%;
+    width: 100%;
+}
+
+
+#slideshow{
+    position: relative;
+}
+
+.pic_slide{
+    max-width: 100%;
+    height: 100%;
+    display: "none";
+    border-radius: 5px;
+    animation: fadeIn ease 4s;
+    -webkit-animation: fadeIn ease 4s;
+}
+
+
+.arrow_button{
+    font-size: 50px;
+    border: none;
+    background-color: white;
+    color: grey;
+    display: inline-block;
+    padding: 8px 32px;
+    margin: 20px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.arrow_button:hover{
+    color: black;
+}
+
+.left_arrow{
+    position: absolute;
+    left: 0%;
+}
+
+.right_arrow{
+    position: absolute;
+    right: 0%;
+}
+
+.pic_title{
+    position: absolute;
+    right: 50%;
+}
+
+
 /* projects page */
 .project_box{
     display: flex;
