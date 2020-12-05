@@ -81,6 +81,7 @@ body{
 
 /* keyframs to fade content in after loading */
 .content {
+    z-index: 0;
     padding: 80px 10px 10px 10px;
     margin: 5px;
     animation: fadeIn ease 2s;
@@ -112,6 +113,161 @@ body{
     100% {opacity:1;}
 }
 
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        height: 0%;
+    }
+    to {
+        opacity: .6;
+        height: 30px;
+    }
+}
+
+@-moz-keyframes fadeUp {
+    from {
+        opacity: 0;
+        height: 0%;
+    }
+    to {
+        opacity: .6;
+        height: 30px;
+    }
+}
+
+@-webkit-keyframes fadeUp {
+    from {
+        opacity: 0;
+        height: 0%;
+    }
+    to {
+        opacity: .6;
+        height: 30px;
+    }
+}
+
+@-o-keyframes fadeUp {
+    from {
+        opacity: 0;
+        height: 0%;
+    }
+    to {
+        opacity: .6;
+        height: 30px;
+    }
+}
+
+@-ms-keyframes fadeUp {
+    from {
+        opacity: 0;
+        height: 0%;
+    }
+    to {
+        opacity: .6;
+        height: 30px;
+    }
+}
+
+@keyframes fadeAllUp {
+    from {
+        height: 30px;
+    }
+    to {
+        height: 100%;
+    }
+}
+
+@-moz-keyframes fadeAllUp {
+    from {
+        height: 30px;
+    }
+    to {
+        height: 100%;
+    }
+}
+
+@-webkit-keyframes fadeAllUp {
+    from {
+        height: 30px;
+    }
+    to {
+        height: 100%;
+    }
+}
+
+@-o-keyframes fadeAllUp {
+    from {
+        height: 30px;
+    }
+    to {
+        height: 100%;
+    }
+}
+
+@-ms-keyframes fadeAllUp {
+    from {
+        height: 30px;
+    }
+    to {
+        height: 100%;
+    }
+}
+
+@keyframes fadeAllDown {
+    from {
+        opacity: 0.6;
+        height: 100%;
+    }
+    to {
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+@-moz-keyframes fadeAllDown {
+    from {
+        opacity: 0.6;
+        height: 100%;
+    }
+    to {
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+@-webkit-keyframes fadeAllDown {
+    from {
+        opacity: 0.6;
+        height: 100%;
+    }
+    to {
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+@-o-keyframes fadeAllDown {
+    from {
+        opacity: 0.6;
+        height: 100%;
+    }
+    to {
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+@-ms-keyframes fadeAllDown {
+    from {
+        opacity: 0;
+        height: 0%;
+    }
+    to {
+        opacity: .6;
+        height: 30px;
+    }
+}
+
 .flexboxes{
     display: flex;
     justify-content: center;
@@ -119,7 +275,7 @@ body{
 
 .h1hr{
     max-width: 33vw;
-    margin: 10px auto 100px auto;
+    margin: 10px auto 10px auto;
 }
 
 /* about page */
@@ -156,20 +312,27 @@ h3{
 
 #slideshow_section{
     width: 800px;
-    height: 700px;
-    display: flex;
+    padding: 0px 0px 50px 0px;
+    display: none;
     flex-direction: column;
     margin: auto;
 }
 
+#personal_experience{
+    padding-bottom: 50px;
+}
+
+
+
 #slides_and_buttons{
-    box-shadow: 0px 5px 10px 5px grey;
+    /* box-shadow: 0px 5px 10px 5px grey; */
     border-radius: 5px;
     padding: 20px;
     margin: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     height: 80%;
 }
 
@@ -180,11 +343,16 @@ h3{
 
 
 #slideshow{
+    z-index: 1;
     position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .pic_slide{
     max-width: 100%;
+    max-height: 540px;
     height: 100%;
     display: "none";
     border-radius: 5px;
@@ -192,8 +360,44 @@ h3{
     -webkit-animation: fadeIn ease 4s;
 }
 
+.pic_caption{
+    z-index: 1000;
+    width: 100%;
+    height: 30px;
+    background-color: black;
+    color: white;
+    opacity: 0.6;
+    display: none;
+    position: absolute;
+    bottom: 0%;
+    flex-direction: column;
+    justify-content: center;    
+}
+
+.caption{
+    text-align: left;
+    display: none;
+    opacity: 1.0;
+    padding: 30px;
+    position: absolute;
+    top: 10%;
+}
+
+.gon_give_it_to_ya{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+    display: none;
+}
+
+.more_info:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 .arrow_button{
+    z-index: 1;
     font-size: 50px;
     border: none;
     background-color: white;
@@ -432,6 +636,9 @@ h3{
         margin-right: 150px;
         height: 2px;
         visibility: visible;
+    }
+    #slideshow_section{
+        display: flex;
     }
 
 

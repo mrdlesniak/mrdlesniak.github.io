@@ -19,29 +19,43 @@
             </p>
     
             <p class="about_text">
-                <b>When I'm not </b> working I like to sing, study Japanese, and play video games. I've started cooking since lockdown began, which I think makes my mom very proud. I've lived in six cities in three different countries. 
+                <b>When I'm not </b> working I like to sing, study Japanese, practice calligraphy, and play video games. I've even started cooking since lockdown began, which I think makes my mom very proud. I've lived in six cities in three different countries. 
             </p>
             
         </div>
         <div class="pic_container">
-            <img id="dylan_pic" src="{% static 'portfolio/pictures/dylan_calray_bandw.jpg' %}" type="image/png">
+            <img id="dylan_pic" src="{% static 'portfolio/headshot/dylan_calray_bandw.jpg' %}" type="image/png">
             
         </div>
         
     </div>
     
     <div id="slideshow_section">
-        <h3>Now For a Personal Experience!</h3>
-        <p>To let you see a little more about my hobbies and what I'm passionate about, please take a look at some of the photos I've accumulated through some of my adventures.</p>
+        <h3 id="personal_experience">Now For a Personal Experience!</h3>
+        <p id="personal_under"><b>To let you</b> see a little more about my hobbies and what I'm passionate about, please take a look at some of the photos I've accumulated through some of my adventures.</p>
 
         <div id="slides_and_buttons">
             
             <button class="arrow_button left_arrow" onclick="plusDivs(-1)">&#10094;</button>
             <div id="slideshow">
-                <img class="pic_slide" src="{% static 'portfolio/pictures/brooklyn_bridge.jpg' %}" >
-                <img class="pic_slide" src="{% static 'portfolio/pictures/canby_fall.jpg' %}" >
-                <img class="pic_slide" src="{% static 'portfolio/pictures/fuji_climbers.jpg' %}" >
-                <img class="pic_slide" src="{% static 'portfolio/pictures/fuji_koi_nobori.jpg' %}" >
+                {% for picture, caption in pictures %}
+
+                    <img class="pic_slide" src="{% static picture %}" >
+
+                        {% if caption is not None %}
+                            <div class="pic_caption">
+                                <p class="more_info">Click for more information</p>
+                                <p class="gon_give_it_to_ya">X</p>
+                                <p class="caption">{{ caption|linebreaksbr }}</p>
+                            </div> 
+                        {% else %}
+                            <div class="pic_caption">
+                                <p class="more_info">{{caption}}</p>
+                            </div> 
+                        {% endif %}
+            
+                {% endfor %}
+                
             </div>
             <button class="arrow_button right_arrow" onclick="plusDivs(1)">&#10095;</button>
 
@@ -52,9 +66,12 @@
     <h2 id="welcome">Welcome to my site!</h2>
 </div>
 
-<script>
+<script type="text/javascript">
     var slideIndex = 1;
-    showDivs(slideIndex);
+
+    // let's the vue load first so no conflicts
+    setTimeout(() => {showDivs(slideIndex);}, 200);
+    
 
     function plusDivs(n) {
         showDivs(slideIndex += n);
@@ -62,15 +79,86 @@
 
     function showDivs(n) {
         var i;
-        var x = document.getElementsByClassName("pic_slide");
-        if (n > x.length) {slideIndex = 1};
-        if (n < 1) {slideIndex = x.length};
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none"
+        var slideDiv = document.getElementById("slideshow");
+        var x = document.getElementsByClassName("gon_give_it_to_ya");
+        var pics = document.getElementsByClassName("pic_slide");
+        var captions = document.getElementsByClassName("pic_caption");
+        var moreInfos = document.getElementsByClassName("more_info");
+        
+        if (n > pics.length) {slideIndex = 1};
+        if (n < 1) {slideIndex = pics.length};
+        for (i = 0; i < pics.length; i++) {
+            pics[i].style.display = "none"
+            captions[i].style.display = "none"
         }
-        x[slideIndex-1].style.display = "block"
+
+        slideDiv.addEventListener("mouseover", showCaption)
+        slideDiv.addEventListener("mouseout", hideCaption)
+        
+        moreInfos[slideIndex-1].addEventListener("click", expandCaption)
+        x[slideIndex-1].addEventListener("click", reduceCaption)
+
+
+        pics[slideIndex-1].style.display = "block"
+
     }
 
+    function showCaption() {
+        var captions = document.getElementsByClassName("pic_caption");
+        var caption = captions[slideIndex-1];
+        caption.style.animation = "fadeUp ease .5s"
+        caption.style.display = "flex"
+    }
 
+    function hideCaption() {
+        var captions = document.getElementsByClassName("pic_caption");
+        var caption = captions[slideIndex-1];
+        caption.style.display = "none";
+    }
+
+    function expandCaption() {
+        var captions = document.getElementsByClassName("pic_caption");
+        var caption = captions[slideIndex-1];
+        var moreInfos = document.getElementsByClassName("more_info");
+        var moreInfo = moreInfos[slideIndex-1];
+        var texts = document.getElementsByClassName("caption");
+        var text = texts[slideIndex-1];
+        var xS = document.getElementsByClassName("gon_give_it_to_ya");
+        var x = xS[slideIndex-1]
+        var slideDiv = document.getElementById("slideshow");
+
+        slideDiv.removeEventListener("mouseover", showCaption)
+        slideDiv.removeEventListener("mouseout", hideCaption)
+
+        caption.style.animation = "fadeAllUp ease 1s"
+        caption.style.height = "100%"
+        caption.style.opacity = ".8"
+        x.style.display = "block"
+        moreInfo.style.display = "none"
+        text.style.display = "block"
+
+        console.log("expandCaption")
+    }
+
+    function reduceCaption() {
+        var captions = document.getElementsByClassName("pic_caption");
+        var caption = captions[slideIndex-1];
+        var moreInfos = document.getElementsByClassName("more_info");
+        var moreInfo = moreInfos[slideIndex-1];
+        var texts = document.getElementsByClassName("caption");
+        var text = texts[slideIndex-1];
+        var xS = document.getElementsByClassName("gon_give_it_to_ya");
+        var x = xS[slideIndex-1]
+        var slideDiv = document.getElementById("slideshow");
+
+        slideDiv.addEventListener("mouseover", showCaption)
+        slideDiv.addEventListener("mouseout", hideCaption)
+
+        caption.style.height = "30px"
+        caption.style.display = "none"
+        x.style.display = "none"
+        moreInfo.style.display = "block"
+        text.style.display = "none"
+    }
 </script>
 {% endblock %}
