@@ -12,6 +12,7 @@
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="{% static 'portfolio/style.css' %}">
 
+
     <!-- icons -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'portfolio/icons/favicon.ico' %}" type="image/x-icon"/>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'portfolio/icons/apple-touch-icon.png' %}">
@@ -21,6 +22,7 @@
 
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
 
 </head>
 <body>
@@ -29,7 +31,7 @@
         <!-- main header section -->
         <div class="navbar">
                 <nav class="logo">
-                    <p class="title">Dyl<span style="color:grey">a</span>n Lesni<span style="color:grey">a</span>k</h1>
+                    <p class="title">Dyl<span style="color:grey">a</span>n Lesni<span style="color:grey">a</span>k</p>
                     
                 </nav>
             
@@ -38,14 +40,13 @@
                 <a {% if activate == 'projects' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:projects' %}">Projects</a>
                 <a {% if activate == 'resume' %}class="menu_links active"{% else %}class="menu_links"{% endif %} href="{% url 'portfolio:resume' %}">Resume</a>
             </nav>
-            <hr>
+        
         </div>
         {% block content %}
         {% endblock %}   
     </div>
     <!-- js section -->
     <div class="bottom">
-        <hr>
         <footer>
             <a class="project_links" href="mailto:mrdlesniak@gmail.com">MrDLesniak@gmail.com</a>
             <a class="project_links" href="https://github.com/mrdlesniak">MrDLesniak @ github</a>
@@ -53,7 +54,7 @@
         </footer>
     </div>
 
-    <script>
+    <script type="text/javascript">
         var app = new Vue({
         el: '#app',
         delimiters: ['[[', ']]'],
@@ -71,8 +72,236 @@
         }
         })
 
+    // normal js
+    var slideIndex = 1;
+    var transishEnd = getTransitionEndEventName();
+
+    // let's the vue load first so no conflicts
+    setTimeout(() => {showDivs(slideIndex);}, 200);
+    
+
+    function plusDivs(n) {
+        // if slide changes with a caption still up, this corrects that
+        resetCaptions()
+
+        showDivs(slideIndex += n);
+    }
+
+    // shows the picture and also sets the listeners for the shown picture
+    function showDivs(n) {
+
+        // variables
+        var i;
+        var slideDiv = document.getElementById("slideshow");
+        var x = document.getElementsByClassName("gon_give_it_to_ya");
+        var pics = document.getElementsByClassName("pic_slide");
+        var captions = document.getElementsByClassName("caption_container");
+        var more_infos = document.getElementsByClassName("more_info");
+        
+        // allows back arrow at start of slideshow
+        if (n > pics.length) {slideIndex = 1};
+        if (n < 1) {slideIndex = pics.length};
+
+        // hides all slides (including current, but that's taken care of later)
+        for (i = 0; i < pics.length; i++) {
+            pics[i].style.display = "none"
+        }
+
+        // changes behavior on mobile
+        if (screen.width < 1150) {
+            showBar()
+            addBarListeners()
+            console.log("mobile")
+        }
+        else{
+            addBarListeners()
+            console.log("full screen")            
+        }
+
+        // shows current slide
+        pics[slideIndex-1].style.display = "block"
+
+    }
+
+    // displays the part of the caption with "show more info"
+    function showBar(wait = false) {
+        var slideDiv = document.getElementById("slideshow");
+        var pic = document.getElementsByClassName("pic_slide")[slideIndex-1];
+        var caption = document.getElementsByClassName("caption_container")[slideIndex-1];
+        var moreInfo = document.getElementsByClassName("more_info")[slideIndex-1];
+
+
+        // transforms caption and text div up from bottom
+        caption.classList.add("shown")
+        moreInfo.classList.add("shown")
+
+        // timeout prevents someone from mashing the click while full caption is closing
+        
+
+        console.log("showBar")
+    }
+
+    // hides the whole caption section. Including "show more info"
+    function hideBar() {
+        var caption = document.getElementsByClassName("caption_container")[slideIndex-1];
+        var moreInfo = document.getElementsByClassName("more_info")[slideIndex-1];
+
+        caption.classList.remove("shown")
+        moreInfo.classList.remove("shown")
+
+        console.log("hideBar")
+    }
+
+    // expands caption to full-size over the picture
+    function expandCaption() {
+        var caption = document.getElementsByClassName("caption_container")[slideIndex-1];
+        var moreInfo = document.getElementsByClassName("more_info")[slideIndex-1];
+        var text = document.getElementsByClassName("caption")[slideIndex-1];
+        var x = document.getElementsByClassName("gon_give_it_to_ya")[slideIndex-1];
+
+        removeBarListeners()
+        removeCaptionContainerListeners()
+        
+        // expands to full size
+        caption.style.transition = "1.3s"
+        caption.style.animation = "fadeAllUp ease 1.3s"
+        caption.style.height = "100%"
+        caption.style.opacity = 0.8
+        
+        //  populates caption container
+        moreInfo.style.display = "none"
+        moreInfo.classList.remove("shown")
+        // waits until caption is expanded 
+        caption.addEventListener(transishEnd, moreInfoToBlock)
+        
+        x.classList.add("shown")
+        text.classList.add("shown")
+        
+        
+        console.log("expandCaption")
+        waitForAddCaption()
+    
+    }
+
+    // takes the fully expanded picture caption and sets it back to the default state
+    function reduceCaption() {
+        var caption = document.getElementsByClassName("caption_container")[slideIndex-1];
+        var text = document.getElementsByClassName("caption")[slideIndex-1];
+        var x = document.getElementsByClassName("gon_give_it_to_ya")[slideIndex-1];
+
+        removeCaptionContainerListeners()
+
+        caption.style.transition = "1.3s"
+        caption.classList.remove("shown")
+        x.classList.remove("shown")
+        text.classList.remove("shown")
+        
+        caption.style.opacity = "0.6"
+        caption.style.height = "30px"
+        
+        console.log("reduceCaption")    
+        
+        caption.addEventListener(transishEnd, waitForShowBar)
+    }    
+    
+    // listeners and helpers
+
+    function getTransitionEndEventName() {
+        var transitions = {
+            "transition"      : "transitionend",
+            "OTransition"     : "oTransitionEnd",
+            "MozTransition"   : "transitionend",
+            "WebkitTransition": "webkitTransitionEnd"
+        }
+        let bodyStyle = document.body.style;
+        for(let transition in transitions) {
+            if(bodyStyle[transition] != undefined) {
+                return transitions[transition];
+            } 
+        }
+    }
+
+
+    function addBarListeners() {
+        var slideDiv = document.getElementById("slideshow");
+
+        // needs the mouseover and off events for slideDive
+        // needs click events for div to expandCaption
+        // needs to have no other listeners available
+        slideDiv.addEventListener("mouseover", showBar)
+        slideDiv.addEventListener("mouseout", hideBar)
+        slideDiv.addEventListener("click", expandCaption)
+    }
+
+    function removeBarListeners() {
+        var slideDiv = document.getElementById("slideshow");
+        
+        slideDiv.removeEventListener("mouseover", showBar)
+        slideDiv.removeEventListener("mouseout", hideBar)
+        slideDiv.removeEventListener("click", expandCaption)
+    }
+
+    function addCaptionContainerListeners() {
+        var slideDiv = document.getElementById("slideshow");
+
+        slideDiv.addEventListener("click", reduceCaption)
+    }
+
+    function removeCaptionContainerListeners() {
+        var slideDiv = document.getElementById("slideshow");
+
+        slideDiv.removeEventListener("click", reduceCaption)
+    }
+
+    function resetCaptions() {
+        var slideDiv = document.getElementById("slideshow");
+        var caption = document.getElementsByClassName("caption_container")[slideIndex-1];
+        var moreInfo = document.getElementsByClassName("more_info")[slideIndex-1];
+        var text = document.getElementsByClassName("caption")[slideIndex-1];
+        var x = document.getElementsByClassName("gon_give_it_to_ya")[slideIndex-1];
+
+        removeBarListeners()
+        removeCaptionContainerListeners()
+
+        caption.style.opacity = "0.6"
+        caption.style.height = "30px"
+        moreInfo.style.display = "block"
+        caption.classList.remove("shown")
+        moreInfo.classList.remove("shown")
+        x.classList.remove("shown")
+        text.classList.remove("shown")
+
+
+    }
+
+    function moreInfoToBlock() {
+        var caption = document.getElementsByClassName("caption_container")[slideIndex-1];
+        var moreInfo = document.getElementsByClassName("more_info")[slideIndex-1];
+
+        moreInfo.style.display = "block"
+        caption.removeEventListener(transishEnd, moreInfoToBlock)
+    }
+    
+    function waitForShowBar() {
+        var caption = document.getElementsByClassName("caption_container")[slideIndex-1];
+        
+
+        console.log("waitForShowBar")
+        addBarListeners()
+        showBar()
+        caption.style.transition = "0.5s"
+        caption.removeEventListener(transishEnd, waitForShowBar)
+    }
+    
+    function waitForAddCaption() {
+        var caption = document.getElementsByClassName("caption_container")[slideIndex-1];
+        
+        console.log("waitForAddCaption")
+        addCaptionContainerListeners()
+        caption.removeEventListener(transishEnd, waitForAddCaption)
+    }
+
     </script>
 
-    <!-- main footer section-->
 </body>
 </html>

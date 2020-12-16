@@ -11,14 +11,17 @@ def index(request):
         url = 'portfolio/pictures/' + filename
         
         try:
-            caption = captions.captions_dict[filename]
+            caption = captions.captions_dict[filename][0]
+            idx = captions.captions_dict[filename][1]
         except KeyError:
-            captions.captions_dict[filename] = None
-            caption = captions.captions_dict[filename]
+            captions.captions_dict[filename] = [None, None]
+            caption = None
+            idx = None
         
 
-        picture_files.append([url, caption])
-    
+        picture_files.append([url, caption, idx])
+
+    picture_files.sort(key = lambda x: x[2])
 
     context = {
         "activate": "about",

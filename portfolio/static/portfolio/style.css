@@ -4,7 +4,9 @@
     padding: 0;
 }
 
-/* navbar */
+.navbar{
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+}
 
 .logo{
     padding: 5px;
@@ -63,6 +65,7 @@ footer{
     justify-content: center;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
 }
 
 footer > a{
@@ -79,14 +82,13 @@ body{
     font-family: 'Raleway', sans-serif;
 }
 
-/* keyframs to fade content in after loading */
 .content {
+    margin-top: 20px;
     z-index: 0;
-    padding: 80px 10px 10px 10px;
-    margin: 5px;
     animation: fadeIn ease 2s;
     -webkit-animation: fadeIn ease 2s;
 }
+/* keyframs to fade content in after loading */
 
 @keyframes fadeIn {
     0% {opacity:0;}
@@ -113,158 +115,59 @@ body{
     100% {opacity:1;}
 }
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        height: 0%;
-    }
-    to {
-        opacity: .6;
-        height: 30px;
-    }
-}
-
-@-moz-keyframes fadeUp {
-    from {
-        opacity: 0;
-        height: 0%;
-    }
-    to {
-        opacity: .6;
-        height: 30px;
-    }
-}
-
-@-webkit-keyframes fadeUp {
-    from {
-        opacity: 0;
-        height: 0%;
-    }
-    to {
-        opacity: .6;
-        height: 30px;
-    }
-}
-
-@-o-keyframes fadeUp {
-    from {
-        opacity: 0;
-        height: 0%;
-    }
-    to {
-        opacity: .6;
-        height: 30px;
-    }
-}
-
-@-ms-keyframes fadeUp {
-    from {
-        opacity: 0;
-        height: 0%;
-    }
-    to {
-        opacity: .6;
-        height: 30px;
-    }
-}
-
 @keyframes fadeAllUp {
     from {
         height: 30px;
+        opacity: 0.6;
     }
     to {
         height: 100%;
+        opacity: 0.8;
     }
 }
 
+/* keyframes to raise caption container */
 @-moz-keyframes fadeAllUp {
     from {
         height: 30px;
+        opacity: 0.6;
     }
     to {
         height: 100%;
+        opacity: 0.8;
     }
 }
 
 @-webkit-keyframes fadeAllUp {
     from {
         height: 30px;
+        opacity: 0.6;
     }
     to {
         height: 100%;
+        opacity: 0.8;
     }
 }
 
 @-o-keyframes fadeAllUp {
     from {
         height: 30px;
+        opacity: 0.6;
     }
     to {
         height: 100%;
+        opacity: 0.8;
     }
 }
 
 @-ms-keyframes fadeAllUp {
     from {
         height: 30px;
-    }
-    to {
-        height: 100%;
-    }
-}
-
-@keyframes fadeAllDown {
-    from {
         opacity: 0.6;
+    }
+    to {
         height: 100%;
-    }
-    to {
-        opacity: 0;
-        height: 0px;
-    }
-}
-
-@-moz-keyframes fadeAllDown {
-    from {
-        opacity: 0.6;
-        height: 100%;
-    }
-    to {
-        opacity: 0;
-        height: 0px;
-    }
-}
-
-@-webkit-keyframes fadeAllDown {
-    from {
-        opacity: 0.6;
-        height: 100%;
-    }
-    to {
-        opacity: 0;
-        height: 0px;
-    }
-}
-
-@-o-keyframes fadeAllDown {
-    from {
-        opacity: 0.6;
-        height: 100%;
-    }
-    to {
-        opacity: 0;
-        height: 0px;
-    }
-}
-
-@-ms-keyframes fadeAllDown {
-    from {
-        opacity: 0;
-        height: 0%;
-    }
-    to {
-        opacity: .6;
-        height: 30px;
+        opacity: 0.8;
     }
 }
 
@@ -302,6 +205,7 @@ h3{
     visibility: hidden;
 }
 
+/* picture and caption section */
 #dylan_pic{
     width: 200px;
     justify-self: center;
@@ -311,29 +215,30 @@ h3{
 }
 
 #slideshow_section{
-    width: 800px;
-    padding: 0px 0px 50px 0px;
-    display: none;
+    display: flex;
     flex-direction: column;
     margin: auto;
 }
 
 #personal_experience{
-    padding-bottom: 50px;
+    padding: 50px;
+    text-align: center;
 }
 
-
+#personal_under{
+    padding: 20px;
+    text-align: center;
+}
 
 #slides_and_buttons{
-    /* box-shadow: 0px 5px 10px 5px grey; */
     border-radius: 5px;
-    padding: 20px;
-    margin: 20px;
+    padding-top: 20px;
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 80%;
+    position: relative;
 }
 
 #slide_background{
@@ -343,45 +248,54 @@ h3{
 
 
 #slideshow{
+    background-color: black;
     z-index: 1;
     position: relative;
     text-align: center;
     display: flex;
     justify-content: center;
+    width: 100vw;
 }
 
 .pic_slide{
-    max-width: 100%;
-    max-height: 540px;
-    height: 100%;
+    max-width: 80vw;
+    max-height: 250px;
+    height: 250px;
     display: "none";
     border-radius: 5px;
     animation: fadeIn ease 4s;
     -webkit-animation: fadeIn ease 4s;
 }
 
-.pic_caption{
+.caption_container{
     z-index: 1000;
     width: 100%;
     height: 30px;
     background-color: black;
     color: white;
     opacity: 0.6;
-    display: none;
+    display: flex;
     position: absolute;
     bottom: 0%;
     flex-direction: column;
-    justify-content: center;    
+    justify-content: center; 
+    align-items: center;
+    transition: 0.5s;
+    transform:scaleY(0); 
+    transform-origin: bottom;
+    cursor: pointer;
 }
 
 .caption{
     text-align: left;
-    display: none;
     opacity: 1.0;
     padding: 30px;
     position: absolute;
-    top: 10%;
+    transition: 1.5s;
+    transform: scaleY(0);
+    transform-origin: bottom;
 }
+
 
 .gon_give_it_to_ya{
     position: absolute;
@@ -389,28 +303,52 @@ h3{
     right: 2%;
     cursor: pointer;
     display: none;
+    z-index: 1000;
+    transition: 1.5s;
+    transform: scaleY(0);
+    transform-origin: bottom;
 }
+
+.more_info{
+    /* position: absolute; */
+    height: auto;
+    transition: 0.5s;
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
+
 
 .more_info:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
+.shown{
+    transition: transform 0.5s;
+    transform:scaleY(1);
+}
+
+.arrow_section{
+    display: flex;
+    align-items: center;
+}
+
 .arrow_button{
     z-index: 1;
     font-size: 50px;
+    position: absolute;
     border: none;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0);
     color: grey;
-    display: inline-block;
-    padding: 8px 32px;
-    margin: 20px;
     vertical-align: middle;
-    overflow: hidden;
     text-decoration: none;
     text-align: center;
     cursor: pointer;
     white-space: nowrap;
+}
+
+.arrow_button:focus{
+    outline-width: 0;
 }
 
 .arrow_button:hover{
@@ -418,19 +356,24 @@ h3{
 }
 
 .left_arrow{
-    position: absolute;
     left: 0%;
+    margin-left: 5px;
 }
 
 .right_arrow{
-    position: absolute;
     right: 0%;
+    margin-right: 5px;
 }
 
 .pic_title{
     position: absolute;
     right: 50%;
 }
+
+#welcome{
+    padding: 40px;
+}
+
 
 
 /* projects page */
@@ -454,7 +397,6 @@ h3{
     text-align: center;
     top: 0px;
     transition: top ease 0.5s;
-    overflow: hidden;
     padding: 10px;
 }
 
@@ -585,7 +527,7 @@ h3{
 }
 
 /* desktop exclusive formatting */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1150px) {
     .content{
         padding-left: 10%;
         padding-right: 10%;
@@ -637,8 +579,39 @@ h3{
         height: 2px;
         visibility: visible;
     }
+    #personal_experience{
+        padding: 0px 0px 50px 0px;
+    }
     #slideshow_section{
+        width: 800px;
+        padding: 0px 0px 30px 0px;
+    }
+    #slideshow{
+        background-color: unset;
+    }
+    #slides_and_buttons{
+        height: 540px;
+        max-height: 80%;
+        position: unset;
+    }
+    .pic_slide{
+        max-width: 100vw;
+        max-height: 540px;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .caption{
+        top: 10%;
+    }
+    .arrow_section{
         display: flex;
+        align-items: center;
+    }
+    .arrow_button{
+        display: inline-block;
+        padding: 8px 32px;
+        margin: 20px;
     }
 
 
