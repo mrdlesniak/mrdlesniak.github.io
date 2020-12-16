@@ -302,7 +302,6 @@ h3{
     top: 2%;
     right: 2%;
     cursor: pointer;
-    display: none;
     z-index: 1000;
     transition: 1.5s;
     transform: scaleY(0);
@@ -553,7 +552,7 @@ h3{
         flex-direction: row;
         padding: 60px;
         text-align: left;
-    }
+    }f
     #dylan_pic{
         width: 400px;
         display: block;
