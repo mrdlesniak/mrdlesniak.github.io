@@ -587,6 +587,7 @@ h3{
     }
     #slideshow{
         background-color: unset;
+        width: auto;
     }
     #slides_and_buttons{
         height: 540px;
