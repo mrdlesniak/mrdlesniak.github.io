@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     build: .
-    command: bash -c "pip install --upgrade pip && python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key personal_portfolio.wsgi:application --bind 0.0.0.0:443"
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key personal_portfolio.wsgi:application --bind 0.0.0.0:443"
     container_name: hello_earth
     volumes:
       - ./code:/src
