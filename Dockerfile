@@ -9,4 +9,5 @@ ADD . /code
 # Set the working directory for the container. I.e. all commands will be based out of this directory
 WORKDIR /code
 # Install all dependencies required for this project. the trusted-host flag is useful if you are behind a corporate proxy.
-RUN pip install --trusted-host pypy.org --trusted-host files.pythonhosted.org -r requirements.txt
+RUN python3 -m pip install --upgrade pip
+RUN pip install --trusted-host pypy.org --trusted-host files.pythonhosted.org -r requirements.txt 
